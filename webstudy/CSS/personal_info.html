@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+       .container{
+           width: 700px;
+           margin: 0 auto;
+       }
+       .title > h1 {
+           text-align: center;
+       }
+      table{
+          width: 500px;
+          margin: 0 auto;
+          border-collapse: collapse;
+          margin-bottom: 20px;
+      }
+
+       td{
+           border: 1px solid silver;
+           text-align: left;
+       }
+       td:first-of-type{
+           width: 100px;
+       }
+       .title_1 th{
+           background-color: cornflowerblue;
+           text-align: center;
+           color: white;
+       }
+       .input_box{
+           width: 100px;
+       }
+       .birth{
+           width: 80px;
+       }
+       
+       .btn{
+           width: 600px;
+           margin: 0 auto;
+           text-align: center;
+       }
+       .btn_work{
+           display: inline-block;
+           width: 120px;
+           margin: 0 auto;
+           background-color: darkblue;
+           color: white;
+          
+       }
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+
+
+
+<form action="">
+    <div class="container">
+
+        <div class="title">
+            <h1>개인정보입력 폼</h1>
+        </div>
+
+        <table>
+
+            <thead class="title_1">
+                <tr>
+                    <th colspan="2">개인정보</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>주민등록번호</td>
+                    <td>
+                        <input type="text" name="idno" class="input_box">
+                        -
+                        <input type="text" name="idno" class="input_box">
+                        <button>검증</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>생일</td>
+                    <td>
+                        <input type="text" name="year" class="birth">년
+                        <input type="text" name="month" class="birth">월
+                        <input type="text" name="day" class="birth">일
+                    </td>
+                </tr>
+                <tr>
+                    <td>성별</td>
+                    <td>
+                        <input id="male" type="radio" name="gender" value="남자">
+                        <label for="male">남자</label>
+                        <input id="female" type="radio" name="gender" value="여자">
+                        <label for="female">여자</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>관심분야</td>
+                    <td>
+                        <input type="checkbox" name="travel" value="여행" id="travel">
+                        <label for="travel">여행</label>
+                        <input type="checkbox" name="moive" value="영화" id="moive">
+                        <label for="moive">영화</label>
+                        <input type="checkbox" name="book" value="독서" id="book">
+                        <label for="book">독서</label>
+                        <input type="checkbox" name="music" value="음악" id="music">
+                        <label for="music">음악</label>
+                        <input type="checkbox" name="none" value="관심없음" id="none">
+                        <label for="none">관심없음</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>자기소개</td>
+                    <td class="intro">
+                        <textarea name="memo" id="text_area" cols="30" rows="10"></textarea>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <div class="btn">
+            <button class="btn_work"type="submit">수정완료</button>
+        </div>
+
+
+
+
+
+
+    </div>
+</form>
+
+
+
+
+
+
+
+    
+</body>
+</html>

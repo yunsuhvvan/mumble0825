@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>제목</title>
+    </head>
+    <body>
+        <img src="../images/naver.png" width="100px">
+
+        <table>
+            <form method="POST">
+            <tbody>
+                <tr>
+                    <td><label>아이디<br>
+                    <input type="text" name="id"></label></td>
+                </tr>
+
+                <tr>
+                    <td><label>비밀번호<br>
+                    <input type="password" name="pw"></label></td>
+                </tr>
+                <tr>
+                    <td><label>비밀번호 재확인<br>
+                    <input type="password" name="pw"></label></td>
+                </tr>
+                <tr>
+                    <td><label>이름<br>
+                    <input type="text" name="name"></label></td>
+                </tr>
+                <tr>
+                    <td><label>생년월일<br>
+                    <input type="text" name="birth" placeholder="년(4자)"></label></td>
+                    <td style="height: 50px;">
+                        <select name="month">
+                            <option value="1">1월</option>
+                            <option value="2">2월</option>
+                            <option value="...">...</option>
+                            <option value="12">12월</option>
+
+                        </select>
+                    </td>
+                    <td><input type="text" name="day" placeholder="일"></td><br>
+                </tr>
+                
+                <tr>
+                        <td>성별<br>
+                        <select name="gender">
+                            <option value="gender">gender</option>
+                            <option value="m">male</option>
+                            <option value="f">female</option>
+                            <option value="none">none</option>
+                        </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>본인 확인 이메일 <sub style="color: darkcyan;">(선택)</sub><br>
+                    <input type="text" name="email" placeholder="선택입력"></td>
+                </tr>
+                <tr>
+                    <td>휴대전화<br>
+                        <select name="mobile">
+                            <option value="select">select</option>
+                            <option value="kor">대한민국+82</option>
+                            <option value="dpkor">북한+8282</option>
+                            <option value="jp">일본+000</option>
+                        </select> <br>
+                        <input type="text" name="mobilenumber" placeholder="전화번호 입력하세요.">
+                        <td><input type="button" value="인증번호받기"></td>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="certificatenumber" placeholder="인증번호 입력하세요."></td>
+                </tr>
+             
+                <tr>
+                    <td> <button type="submit">가입하기</button></td>
+                </tr>
+
+            </tbody>
+            
+            </form>
+        </table>
+
+    </body>
+</html>
+
+
+
+<!-- 선생님이 한거 -->
+
+
+<h3>연습문제-4(네이버 회원가입)</h3>
+        
+        <h1 style="color: limegreen;">NAVER</h1>
+	
+        <form method="post">
+            
+            <label for="user_id">아이디</label><br>
+            <input id="user_id" type="text" name="userId"><br><br>
+            
+            <label for="user_pw">비밀번호</label><br>
+            <input id="user_pw" type="password" name="userPw"><br><br>
+            
+            <label for="user_pw2">비밀번호 재확인</label><br>
+            <input id="user_pw2" type="password"><br><br>  <!-- 서버로 보낼 필요가 없어서 name 속성이 없음 -->
+            
+            <label for="user_name">이름</label><br>
+            <input id="user_name" type="text" name="userName"><br><br>
+            
+            <label for="yyyy">생년월일</label><br>
+            <input id="yyyy" type="text" name="year" placeholder="년(4자)" style="width: 60px;">
+            <select name="month">
+                <option value="">월</option>
+                <option value="01">1월</option>
+                <option value="02">2월</option>
+                <option value="...">...</option>
+                <option value="12">12월</option>
+            </select>
+            <input type="text" name="day" placeholder="일" style="width: 50px;"><br><br>
+            
+            <label for="user_gender">성별</label><br>
+            <select id="user_gender" name="userGender">
+                <option value="">성별</option>
+                <option value="male">남자</option>
+                <option value="female">여자</option>
+                <option value="none">선택 안함</option>
+            </select><br><br>
+            
+            <label for="user_email">본인 확인 이메일<span style="color: gray; font-size: 10px;">(선택)</span></label><br>
+            <input id="user_email" type="text" name="userEmail" placeholder="선택입력"><br><br>
+            
+            <label for="user_mobile">휴대전화</label><br>
+            <select name="countryNo">
+                <option value="233">가나 +233</option>
+                <option value="...">...</option>
+                <option value="82" selected>대한민국 +82</option>
+                <option value="...">...</option>
+                <option value="852">홍콩 +852</option>
+            </select><br>
+            <input id="user_mobile" type="text" name="userMobile" placeholder="전화번호 입력" style="width: 70px;">
+            <input type="button" value="인증번호 받기"><br>
+            <input type="text" name="authCode" placeholder="인증번호 입력하세요"><br><br><br>
+            
+            <button>가입하기</button>
+            
+        </form>
+
