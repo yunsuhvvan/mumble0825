@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #box5 > table {
+            
+            border-collapse: collapse;
+        }
+        #box5 td{
+            border: 1px solid silver;
+            padding: 3px 6px;
+        }
+        .even{
+            background-color: orangered;
+        }
+        .odd{
+            background-color: cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+    <!-- 1 2 3 4 5 6 7 8 9 10 -->
+    <div id="box1">
+
+    </div>
+    <script>
+        let a = 1;
+        while(a <=10){
+            document.getElementById('box1').innerHTML += a + '&nbsp';//html의 구성요소는 innerhtml로 사용한다 textcontet는 아니다
+            a++;                                                    //누적 시킬 수 있게 +=로 사용해야한다.
+        }
+
+        document.getElementById('box1').innerHTML = '';
+        
+        for(let b =1; b <=10; b++){
+            document.getElementById('box1').innerHTML += b + '<br>';
+            
+        }
+    </script>
+    <!-- 연습1. 목록 태그로 1~5 출력하기 -->
+    <!-- 
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+     -->
+
+     <div id="box2">
+
+
+     </div>
+    <script>
+        /*   DOM 메소드 이용
+        let ul = document.createElement('ul');
+        document.getElementById('box2').appendChild(ul);
+        
+        for(let n =1; n<=5; n++){
+            let li = document.createElement('li');
+            li.textContent = n;
+            ul.appendChild(li); 
+        }*/
+
+        let result = '<ul>';
+
+            for(let n =1; n <=5; n++){
+                result += '<li>' + n + '</li>';
+            }
+            result += '</ul>';
+            document.getElementById('box2').innerHTML =result;
+
+
+            /*
+        let d = 0;
+        while(d <= 0){
+            d++;
+            document.getElementById('box2').innerHTML =  '<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>';
+        }
+        */
+    </script>
+
+    <!-- 연습2. select 태그 만들기 -->
+    <!-- 
+        <select name="month">
+            <option value=""> 월 선택 </option>
+            <option value=""> 1월 </option>
+            <option value=""> 2월 </option>
+            <option value=""> ..월 </option>
+            <option value=""> 12월 </option>
+
+        </select>   
+     -->
+
+     <div id="box3">
+
+     </div>
+     <script>
+         
+        // DOM 메소드
+        let select = document.createElement('select');     //<select></select>
+        select.setAttribute('name' , 'month');             //<select name = "month"> </select>
+        document.getElementById('box3').appendChild(select); <div id="box3"> <select name = "month"></select> </div>
+
+        let option1 = document.createElement('option'); //<option></option>
+        option1 = setAttribute('value' , ' ');          //<option value = ""></option>
+        option1 = textContent = '월 선택';              //<option value = "">월 선택</option>
+        select.appendChild('option1');                  //select name = "month"><option value = "">월 선택</option></select>
+
+        for(let k=1; k<=12; k++){
+            let option =document.createElement('option');
+            option.setAttribute('value' , 'month');
+            option.textContent = month + '월';
+            select.appendChild(option);
+        }
+
+
+        // 태그를 텍스트로 생성하기
+        let selectList = '<select name="month"><option value=""> 월 선택</option>'
+            for(let month =1; month <=12; month++){
+                selectList += '<option value= "' +month +'">' + month + '월</option>';
+            }
+            selectList += '</select>';
+            document.getElementById('box3').innerHTML = selectList;
+       
+     </script>
+
+ <!-- 연습3. table 태그 만들기 -->
+    <!--
+        1   2   3
+        4   5   6
+        7   8   9
+        *   0   #
+    -->
+    <div id="box4"></div>
+    <script>
+        /* DOM 메소드 */
+        let table = document.createElement('table');
+        table.setAttribute('border', 1);
+        document.getElementById('box4').appendChild(table);
+        let tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+        let num = 1;
+        for (let row = 1; row <= 4; row++) {
+            let tr = document.createElement('tr');
+            tbody.appendChild(tr);
+            for (let col = 1; col <= 3; col++) {
+                let td = document.createElement('td');
+                td.style.border = '1px solid red';
+                switch (num) {
+                    case 10: td.textContent = '*'; break;
+                    case 11: td.textContent = '0'; break;
+                    case 12: td.textContent = '#'; break;
+                    default: td.textContent = num;
+                }
+                tr.appendChild(td);
+                num++;
+            }
+        }
+        /* 태그를 텍스트로 생성하기 */
+        let strTable = '<table border="1"><tbody>';
+        let num2 = 1;
+        for (let row = 1; row <= 4; row++) {
+            strTable += '<tr>';
+            for (let col = 1; col <= 3; col++) {
+                switch (true) {
+                    case num2 <= 9:  strTable += '<td>' + num2 + '</td>'; break;
+                    case num2 == 10: strTable += '<td>*</td>'; break;
+                    case num2 == 11: strTable += '<td>0</td>'; break;
+                    case num2 == 12: strTable += '<td>#</td>';
+                }
+                num2++;
+            }
+            strTable += '</tr>';
+        }
+        strTable += '</tbody></table>';
+        document.getElementById('box4').innerHTML = strTable;
+    </script>
+
+
+<div id="box5">
+
+</div>
+
+<script>
+    // let guguTable = '<table border="1"><tbody>';
+    //     for(let guj=1; guj<=9; guj++ ){
+    //     guguTable += '<tr>';
+    //             for(let gui =2; gui<=9; gui++){
+    //             guguTable += '<td>'+gui+ 'x'+guj+ '=' + gui*guj + '</td>';
+    //         }
+    //         guguTable += '</tr>';
+    //     }
+    // guguTable+= '</tbody></table>';
+    // document.getElementById('box5').innerHTML =guguTable;
+
+
+
+    //  dom 메소드
+    let guguTable = document.createElement('table');
+    document.getElementById('box5').appendChild(guguTable);
+    let guguBody =  document.createElement('tbody');
+    guguTable.appendChild(guguBody);
+
+    for(let n =1; n<=9; n++){
+        let tr = document.createElement('tr');
+        guguBody.appendChild(tr);
+        for(let dan =2; dan<=9; dan++){
+            let td = document.createElement('td');
+            if(dan %2==0){
+                td.setAttribute('class', 'even');
+            } else {
+                td.setAttribute('class', 'odd');
+            }
+             td.textContent= dan + 'x'+ n + '=' + (dan*n);
+             tr.appendChild(td);
+        }
+
+    }
+   
+   
+    // 태그를 텍스트로 형성하기
+
+    let strGugu = '<table><tbody>';
+        for(let n=1; n <= 9;  n++){
+            strGugu += '<tr>';
+                for(let dan =2; dan<=9; dan++){
+                    let expr =dan + 'x' + n+ '= '+ (dan*n);
+                    strGugu += '<td class = " '+(dan %2==0 ?  'even' : 'odd')+' ">'+ expr +'</td>';
+                }
+                strGugu += '</tr>';
+
+        }
+        strGugu += '</tbody></table>';
+        document.getElementById('box5').innerHTML =  strGugu;
+</script>
+
+
+<!-- 연습 6. 5개 정수를 입력 받아서 평균을 출력. 양수 이외 입력은  '다시 입력하세요' -->
+
+<div id="box6">
+
+
+</div>
+
+<script>
+//     let average;
+//     let sum;
+
+//     for (let num =1; num<=5; num++){
+//         sum = Number(prompt("정수를 입력하세요"));
+//         if (sum >= 0){
+//             sum+= sum;
+//             average += sum;
+
+//         } else if (num1 < 0){
+//             document.write('다시 입력하세요');
+//         }
+//         document.write(average/sum);
+//     }
+//    document.getElementById('box6').appendChild(average);
+
+    // let count = 0;
+    // let total = 0;
+    // while (count < 5){
+    //     let n = Number(prompt(( count + 1 )+" 번째 정수를 입력하세요."));
+    //     if(n <= 0 || isNaN(n)){
+    //         alert( n +'은 양수가 아닙니다. 다시 입력하세요.');
+    //     } else {
+    //         total += n;
+    //         count++;
+            
+    //     } 
+    // }
+    // document.getElementById('box6').textContent = '평균' +(total /count);
+
+
+
+    let count = 0 ;
+    let total = 0;
+    for (let count =1; count <=5; count++){
+        let c = parseInt(prompt('정수를 입력하세요.'));
+        if( c <= 0){
+            alert(c+ '는 양수가 아닙니다. 다시 입력하세요');
+        } else {
+            total += c;
+        }
+    }
+    document.getElementById('box6').textContent = '평균' +(total/5);
+
+
+
+
+</script>
+    
+</body>
+</html>
