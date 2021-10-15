@@ -52,6 +52,21 @@
                 2) 인수와 매개변수의 갯수가 서로 다를 수 있다.
                    인수가 전달되지 않는 매개변수를 처리하기 위한 디폴트 개념이 존재한다.
                 3) 전달된 모든 인수를 저장하는 arguments 객체(유사배열)가 있다.
+
+
+            6. 타이머 함수
+                1) 한 번만 동작하는 함수
+                      (1)var id = setTimeout(동작시킬 함수 전달,시간(밀리세컨드));  ms(1000분의 1- us - ns(10억분의1)    
+                      (2) clearTimeout(id);  : 해당 id를 가진 타이머 취소하기
+
+
+                2) 반복 동작하는 함수
+                      (1)setInterval(동작시킬함수전달, 시간(밀리세컨드));
+                      (2) clearInterval(id); : 해당 id를 가진 타이머 취소하기
+
+
+
+                
                 
                     
 
@@ -124,7 +139,7 @@
             callback(name , age);
         }
         func7(whoAreYou,'윤수환' , 28);  // 선언적 함수는 '함수명'을 전달한다.   whoareyou가 callback으로 전달
-                                         // 윤수환 29 는 func7  매개변수 name, age에 전달  -> 구현부 name age에 전달
+                                         // 윤수환 28 는 func7  매개변수 name, age에 전달  -> 구현부 name age에 전달
 
         //2. 익명 함수를 콜백으로 전달하기
         function func8(callback, name, age) {
@@ -196,9 +211,55 @@
             func10(50,60);
             func10(70,80,90);
 
-            </script>
-            
 
+            // 3. arguments 객체
+            //    1) 모든 함수는 매개변수를 선언하지 않아도 인수를 사용할 수 있다.
+            //    2) 모든 인수는 자동으로 arguments 객체에 저장된다.
+            //    3) arguments 객체는 배열처럼 사용할 수 있다.
+
+            function func11(){
+                console.log(arguments);  // 매개변수를 선언하지 않아도 인수('윤수환')가 arguments객체에 전달된다.
+                console.log(arguments[0]); // 이 객체는 배열처럼 사용할 수 있다.
+
+            }
+            func11('윤수환');
+
+            </script>
+
+            <!-- 6. 타이머함수 -->
+            <div id="boom"></div>
+            <script>
+                // 1. 5초 후에 폭탄을 터트리시오
+               /*
+                setTimeout(function (){
+                   document.getElementById('boom').innerHTML = '<h1>펑</h1>';
+               } ,5000);
+
+               // 연습. 카운트 다운 폭탄
+               // 5 - 4 - 3 - 2 - 1 - 펑
+             
+               var countDown = 5;
+             (function countDownBoom() {
+                 setTimeout(function () {
+                   if(countDown ==0) {
+                    document.getElementById('boom').innerHTML = '<h1>펑</h1>';
+                       return ;
+                   }
+                   document.getElementById('boom').innerHTML = '<h1>'+ countDown-- + '</h1>';
+                    countDownBoom();  // 자신이 자신을 부르는 함수 = 재귀호출
+                 },1000)
+             })(); 
+             */
+
+             // 2.  카운트 다운 
+             var countDown =5;
+             setInterval(function () {
+                 if(countDown < 0){
+                     return;
+                 }
+                document.getElementById('boom').innerHTML = '<h1>'+ countDown-- + '</h1>';
+             },1000);
+                </script>
 
 
 </body>
