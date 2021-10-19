@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+            1. 이벤트 구성요소
+                1) 이벤트 객체
+                    (1) 해당 이벤트의 상세 정보를 저장하고 있는 객체이다.
+                    (2) "이벤트 리스너(함수)'가 호출될 때 인수로 전달된다.
+                2) 이벤트 타입
+                    (1) 이벤트의 종류를 의미한다.
+                    (2) 이벤트 객체의 type 프로퍼티로 확인할 수 있다.
+                    (3) 종류
+                       1. click     : 클릭
+                       2. dblclick  : 더블클릭
+                       3. load      : html 문서를 모두 load한 뒤 (읽은 뒤)
+                       4. focus     : 포커스를 가졌을 때
+                       5. blur      : 포커스를 잃었을 때
+                       6. submit    : 폼(form)의 모든 요소를 전송할 때
+                       7. mouseover : 마우스가 들어오면  (css의 hover 기능)
+                       8. mouseout  : 마우스가 나가면 
+                       9. keydown   : 키가 내려갈 때( 입력 되기 전)
+                       10. keyup    : 키가 올라올 때( 입력 된 후)
+
+                3) 이벤트 대상
+                    (1) 이벤트가 적용되는 HTML 구성요소이다.
+                    (2) 이벤트 객체의 target 프로퍼티로 확인할 수 있다.    
+                4) 이벤트 리스너 (listener)
+                    (1) 이벤트가 발생하면 호출되는 함수이다.
+                    (2) 선언적 함수, 익명 함수 모두 사용할 수 있다.
+                    (3) 이벤트 리스너의 매개변수는 "이벤트 객체"를 저장한다.
+            2. 이벤트 속성
+                1) 이벤트를 등록시키는 속성이다.
+                2) 'on + 이벤트 타입' 형식으로 구성된다.
+                3) onclick, ondblclick, onload, onfocus, onblur, onsubmit
+                    ,onmousover, onmouseout, onkeydown, onkeyup        
+            
+            3. 이벤트 모델
+                1) 고전 이벤트 모델 : 하나의 이벤트 리스너만 연결할 수 있다.
+                    (1) 익명 함수 등록
+                    <div id="box"></div>
+                    document.getElementById('box').onclick = fuction(){}  // 익명함수
+                
+                    (2) 선언적 함수 등록
+                    <div id="box"></div>
+                    function f(){
+
+                    }
+                    document.getElementById('box').onclick = f; //선언적함수  f에() 없음 주의.. 붙히면 안된다.
+               
+                2) 인라인 이벤트 모델 : HTML 구성요소(태그)에 이벤트 속성을 집적 등록
+                    (1) 선언적 함수 등록...해야 할 일이 여러개
+                      function f(){
+
+                     }      
+                     <div onclick = "f()"></div>   f에() 있음 주의
+                    (2) 익명 함수 등록
+                      <div onclick = "fuction(){}"></div>
+                    (3) 스크립트 코드 직접 등록  ... 해야 할 일이 simple할 때
+                      <div onclick = "console.log('hello world')"</div>
+
+                3) 표준 이벤트 모델 : 여러개의 이벤트 리스너를 연결할 수 있다.
+
+                     (1) 선언적 함수 등록
+                        <div id="box"></div>   ==target
+
+                        function f1(){
+
+                        }
+                        function f2(){
+                            
+                        }
+                        document.getElementById('box').addEventListener('click',f1);  // onlick이 아님에 주의
+                        document.getElementById('box').addEventListeneer('dblclick',f2);
+             
+                     (2) 익명 함수 등록
+                        document.getElementById('box').addEventListener('click',function(){});
+
+            4. 기본 이벤트 취소
+                1) 기본 이벤트 : 등록되어 있는 이벤트이다.
+                2)  대표 종류  
+                   (1) <a> 태그를 클릭하면 링크주서(href)로 이동한다.
+                   (2) <button> 태그를 클릭하면 <form> 태그의 action 속성 값으로 form 요소를 전송한다. (submit)
+                3) 기본 이벤트 취소
+                   이벤트 리스너에서 event.preventDefault()를 호출한다.
+
+                    
+
+                       
+             */   
+
+            
+       
+    </script>
+
+
+    <style>
+        /* 연습문제5. */
+      
+        .items{
+            background-image: url(../images/uncheck.png);
+            padding-left: 20px;
+            background-size: 18px 18px;
+            background-repeat: no-repeat;
+        }
+
+        .checked{
+            background-image: url(../images/check.png);
+        }
+
+    </style>
+
+
+</head>
+<body>
+    <!-- 1. 고전 이벤트 모델 연습 -->
+   <input type="button" value="클릭해보세요" id="btn1">
+   <script>
+       const btn1 = document.getElementById('btn1');                //document.getElementById('box').onclick = fuction(){}  // 익명함수
+       btn1.onclick = function  (event) {
+           console.log('이벤트 대상 : ' +event.target);  //[object HTMLInputElement]  -- > input  --> btn1
+           console.log('이벤트 대상 : ' +this);           //[object HTMLInputElement]  -- > input  --> btn1
+           console.log(this.type);    // button        btn1의  type 속성을 의미함
+           console.log(this.value);  // 클릭해보세요   btn1의  value속성을 의미함
+           console.log(this.id);     // btn1          btn1의 id 속성을 의미함
+
+           console.log('이벤트 타입 : ' +event.type);    // click
+           this.value = '눌렀네'; 
+       }
+
+       
+       // 이벤트 대상   : btn1
+       // 이벤트 타입   : click
+       // 이벤트 속성   : onclick
+       // 이벤트 리스너 : function(){}
+       // 이벤트 객체   : event
+
+
+       // 고전이벤트 모델 선언적함수 f에서 () 없음
+       // 표준이벤트 모델  속성on없음 , addEventListener.('' ,' ')
+   </script>
+    <hr>
+
+   <!-- 2. 인라인 이벤트 모델 -->
+   <div id="box1"></div>
+   <input type="button" value="클릭하면 메세지가 생깁니다."  id="btn2" onclick="func1()">
+   <script>
+       function func1() {
+           document.getElementById('box1').textContent = '안녕하세요';
+       }
+   </script>
+
+<hr>
+    <!-- 3.표준 이벤트 모델 -->
+    <input type="button" value="클릭하면 메세지가 나타납니다." id="btn3">
+    <script>
+        const btn3 = document.getElementById('btn3');
+        btn3.addEventListener('click', func2);
+        btn3.addEventListener('click', func3);
+            function func2(event) {   
+                alert('안녕하세요');
+                alert('나는' + event.target.id+ '입니다');
+
+            }
+            
+            function func3() {
+                alert('반갑습니다.');
+            }
+    </script>
+    <hr>
+
+    <!-- 4. 기본 이벤트  -->
+    <input type="text" id="query" >  <!--value="사용자가 입력한 값"-->
+    <a href="https://search.naver.com/search.naver" id="naver_search">검색</a>
+    <script>
+        const naverSearch = document.getElementById('naver_search');
+        naverSearch.onclick = function(event){  // 기본 이벤트 취소는 이벤트 객체(evnet)를 이용함.
+            let query = document.getElementById('query');
+            if(query.value == ''){
+                alert('검색어가 없습니다.');
+                event.preventDefault();   //기본 이벤트 (a 태그는 href로 이동하기 ) 취소
+            }
+            naverSearch.href += '?query=' + query.value; 
+           
+        }
+    </script>
+
+<!-- 4. 기본이벤트를 표준이벤트 모델로 작성
+<input type="text" id="query">
+ <a href="https://search.naver.com/search.naver" id="naver_search">검색</a>
+ <script>
+     const naverSearch = document.getElementById('naver_search');
+     naverSearch.addEventListener('click', func3);
+        let query = document.getElementById('query');
+        function func3(event)  {
+            if(query.value == ''){
+                alert('검색어가 없습니다.');
+                event.preventDefault();   //기본 이벤트 (a 태그는 href로 이동하기 ) 취소
+            }
+            naverSearch.href += '?query=' + query.value; 
+        }
+ </script> -->
+
+
+    <!-- 5. load 이벤트  -->
+    <script>
+        // 고전 : 이벤트대상.이벤트속성 = 이벤트리스너
+        onload = function () {  //window.onload =function (){} 이지만 window객체는 언제나 생략 가능함
+            //load 이벤트로 동작하는 이벤트 리스너에서는
+            // 현재 HTML문서의 모든 구성요소를 사용할 수 있다.
+
+            let box2 = document.getElementById('box2');
+            console.log(box2.textContent);
+            
+        }
+    </script>
+    <div id="box2">클릭해보세요</div>
+
+
+<hr>
+    <!-- 연습 1. "이미지 변경하기" 버튼을 클릭하면 
+        images 디렉터리의 이미지가 랜덤하게 변경 되도록 구현하시오.  -->
+
+        <div id="box3"></div>
+        <input type="button" value="이미지변경하기"  id="img_btn">
+        <script>
+            document.getElementById('img_btn').onclick = function () {
+                let images = ['apple.jpg', 'blackbord', 'cat.job',
+                              'daum.jpg', 'dog.jpg', ' eagle.jpg',
+                              'frog.jpg', 'fruit1.jpg', 'fruit2.jpg'];
+             
+                            let pickImage = images[parseInt(Math.random()*images.length)];
+                            let result = '<img width= "300px" src= "../images/'+pickImage+'">';
+                            document.getElementById('box3').innerHTML = result;
+                }                
+        </script>
+
+        <!-- 연습 2. 이미지 슬라이드를 구현하시오 -->
+
+        <div id="box4">
+            <img src="../images/fruit1.jpg" width="300px" height="200px" id="image">
+        </div>
+        <div>
+            <input type="button" value="<<" id="prev_btn" onclick="changeImage(-1)">  <!-- 인라인 이벤트 -->
+            <span id="image_no">1/5</span>
+            <input type="button" value=">>" id="next_btn" onclick="changeImage(1)">  <!--인라인 이벤트  -->
+        </div>
+        
+        <script>
+             let images = [
+                            'fruit1.jpg', 'fruit2.jpg','fruit3.jpg'
+                           ,'fruit4.jpg', 'fruit5.jpg'];
+            let image_idx = 0;
+
+            function changeImage(n) {  //이전 :-1 전달하고  , 다음 : +1 전달
+                image_idx +=n;    // 다음 인덱스 계산
+                if(image_idx < 0){ //첫 이미지 보기에서 이전 버튼을 누른다면..
+                    image = image.length-1;
+
+                } else if(image_idx == images.length){// 마지막 이미지 보기에서 다음 버튼을 누른다면...
+                    image_idx = 0;
+                }
+                document.getElementById('image').src = '../images/'+ images[image_idx];
+                document.getElementById('image_no').textContent = (image_idx+1) + '/' + (images.length);
+            }
+            /*
+
+            고전 이벤트 : function(){} 로 
+            document.getElementById('prev_btn').onclick = function () {
+                changeImage(-1);
+            }
+
+            document.getElementById('next_btn').onclick = function () {
+                changeImage(1);
+            }
+            */
+             
+        </script>
+        <hr>
+
+        <!-- 연습3. 썸네일을 클릭하면 큰 이미지가 나타나도록 구현하시오 -->
+        <div id="box5">
+            <img src="../images/fruit1.jpg" id="large_image" width="300px" height="200px">
+        </div>
+
+        <div>
+            <img src="../images/fruit1.jpg" class="thumbnails" width="40px" height="30px">
+            <img src="../images/fruit2.jpg" class="thumbnails" width="40px" height="30px">
+            <img src="../images/fruit3.jpg" class="thumbnails" width="40px" height="30px">
+            <img src="../images/fruit4.jpg" class="thumbnails" width="40px" height="30px">
+            <img src="../images/fruit5.jpg" class="thumbnails" width="40px" height="30px">
+
+        </div>
+        <script>
+            
+           let thumbnails = document.getElementsByClassName('thumbnails');
+            
+            for(let i = 0 ; i <thumbnails.length; i++){
+                thumbnails[i].onclick = function () {
+                    // 클릭한 썸네일(이벤트 대상)의src속성값을 id ="large_image"에 적는다
+                    // this
+                    // event.target
+                    document.getElementById('large_image').src = this.src;   // 이벤트 대상:thumbnails[i]
+                }
+            } 
+        </script>
+
+        <!-- 연습 4. 정답 보이기/숨기기 -->
+        <div id="box6">
+            <h1>프론트엔드 과목이 아닌 것은?</h1>
+            <ol>
+                <li>JavaScript</li>
+                <li>Java</li>
+                <li>CSS</li>
+                <li>HTML</li>
+            </ol>
+            <input type="button" value="정답보기" id="answer_btn">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="answer">2</span>
+        </div>
+
+        <script>
+
+            document.getElementById('answer').style.display = 'none';
+
+            // 버튼을 클릭하면 
+            // 정답보기 - 정답 숨기기 변환
+            // 안보임   -   보임      변환
+            let button = document.getElementById('answer_btn').onclick = function () {
+                
+                if(this.value == '정답보기'){
+                        this.value == '정답숨기기'
+                        document.getElementById('answer').style.display = 'inline';
+                    } else{
+                            document.getElementById('answer').style.display = 'none';
+                        }
+                
+            }        
+                    
+                    // button.addEventListener('click',fucn1 )
+                    // button.addEventListener('click',fuc2 )
+                    
+                    
+                    // function func1() {
+                    //     document.getElementById('answer').style.display = 'none';
+                    // }
+                    // function fuc2() {
+                    //     document.getElementById("answer").style.display ='block';
+                    // }        
+            
+        </script>
+
+        <!-- 연습5. 클릭한 요소 강조하기 -->
+        <div>
+            <ul style="list-style-type: none ;">
+                <li class="items">나는 수업에 충실한다.</li>
+                <li class="items">나는 수업에 집중한다.</li>
+                <li class="items">나는 수업시간에 졸지 않는다.</li>
+                <li class="items">나는 수업시간에 질문한다.</li>
+                <li class="items">나는 수업이 재미있다.</li>
+            </ul>
+        </div>
+        <script>
+           let items = document.getElementsByClassName('items');
+             for(let i = 0 ; i <items.length; i ++){
+                  items[i].onclick = function () {
+                      this.classList.toggle('checked');
+                      // toggle 하면
+                      // <li class="items"> 이면 <li class="items checked">
+                     // <li class="items checked"> 이면 <li class="items">
+                      }
+                }
+        
+    
+        
+        //   this.style.backgroundImage = 'url(../images/check.png)';
+        </script>
+
+
+
+    
+</body>
+</html>
