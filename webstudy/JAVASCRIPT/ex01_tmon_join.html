@@ -152,35 +152,30 @@
                 }
             });
 
-            //3. 비밀번호 다시 체크하기.
-
-            let userPwConfirm =  document.getElementById('userPwConfirm');
-            function fn_userPwConfirm(userPw,userPwConfirm) {
-                if(userPw.value==this.value) {
-                        userPwConfirm.parentNode.className = 'input checked';
-                    } else {
-                        userPwConfirm.parentNode.className = 'input';
-                        msg[2].textContent = '비밀번호가 일치하지 않습니다.';
-                        msg[2].className = 'msg dont';
-                    }
-            }
-            userPw.addEventListener('keyup',function () {
-                if(userPwConfirm.value == ''){
-                    msg[2].textContent ='필수 정보 입니다.';
-                    msg[2].className ='msg dont';
+          
+            // 3. 비밀번호 재확인
+            let userPwConfirm = document.getElementById('userPwConfirm');
+            function fn_userPwConfirm(userPw, userPwConfirm) {
+                if (userPw.value == userPwConfirm.value) {
+                    userPwConfirm.parentNode.className = 'input checked';
+                } else {
+                    userPwConfirm.parentNode.className = 'input';
+                    msg[2].textContent = '비밀번호가 일치하지 않습니다.';
+                    msg[2].className = 'msg dont';
                 }
-                
-                userPwConfirm(userPw,userPwConfirm);
-
+            }
+            userPw.addEventListener('keyup', function(){
+                if (userPwConfirm.value == '') {
+                    msg[2].textContent = '필수 정보입니다.';
+                    msg[2].className = 'msg dont';
+                }
+                fn_userPwConfirm(userPw, userPwConfirm);
+            });
+            userPwConfirm.addEventListener('keyup', function(){
+                fn_userPwConfirm(userPw, userPwConfirm);
             });
 
-            
-            userPwConfirm.addEventListener('keyup' , function () {
-               
-                fn_userPwConfirm(userPw,userPwConfirm);
-                    
-            });
-            
+        
 
 
 
