@@ -237,7 +237,7 @@
                 let local = weather.getElementsByTagName('local');
                 for(let i = 0 ; i <local.length; i++){
                     result += '<tr>'
-                        result += '<td>' +  local.textContent + '</td>';
+                        result += '<td>' +  local.textContent + '</td>';        
                         result += '<td>' +  local.getAttribute('desc') + '</td>';
                         result += '<td>' +  local.getAttribute('ta') + '</td>';
                     result += '</tr>'
@@ -250,8 +250,177 @@
 
 
     </script>
+    <!-- 연습2. CCTV 분석하기 -->
+    <div id="box7">
+        <h1>마포구 전체 CCTV는 <span id="total_cctv">대 입니다.</span></h1>
+        <!-- console.log로 작업 -->
+        <!-- 전체 위도 : lat 배열에 저장 및 출력 -->
+        <!-- 전체 경도 : lon 배열에 저장 및 출력 -->
+    </div>
 
-    
+    <script>
+        var request = new XMLHttpRequest();
+        request.open('get', '15_cctv.json', true);
+        request.send();
+        request.onreadystatechange = function () {
+            if(request.readyState ==4 && request.status == 200 ){
+                let resJSON = JSON.parse(request.responseText);
+
+                //전체 위도
+                let lat = [];
+
+                // 전체 경도
+                let lon = [];
+
+                // resJSON =  [{}, {},]
+                // 전체 cctv 대수 total
+                let total = 0;
+                for(let i = 0 ; i <resJSON.length; i++){
+                    // resJSON[i] : {}
+                    // resJSON[i].관리기관명
+                    total += Number(resJSON[i]['카메라대수']);
+                    lat.push(Number(resJSON[i]['위도']));
+                    lon.push(Number(resJSON[i]['경도']));
+                }
+                document.getElementById('total_cctv').textContent = total;
+                console.log(lat);
+                console.log(lon);
+            }
+        }
+    </script>
+
+    <!-- jquery 라이브러리  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <div id="box8"></div>
+    <script>
+        $.ajax({
+            'url' :  '15_data2.txt',     // url: 데이터를 받아오는 서버 경로
+            'dataType': 'text',         // dataType :  받아오는 데이터의 타입 (xml,json 등)
+            'data' : 'query=1',         // data : 서버로 보내는 데이터
+            'tpye' : 'get',             // type :  요청 방식 (서버로 데이터를 보내는 방식)
+            'contentType' : 'text/plain',// contentType: 서버로 보내는 데이터의 타입
+            'async' : true,             // async : 비동기(true), 동기 (false) , 비동기만 사용할 것. 생략하면 비동기
+            'success' : function (data) {   // success : ajax 성공 시 처리할 함수 , 받아 온 실제 데이터(responseText, responseXML 등)
+                fn_ajax1(data);
+            },
+            // error : ajax 실패 시 처리할 함수
+            'error' : function (xhr, textStatus, errorThrown) { // jqXHR -> xhr
+                   console.log('xhr.status : ' + xhr.status); 
+                   console.log('xhr.statusText : ' + xhr.statusText); 
+                   console.log('xhr.statusCode : ' + xhr.statusCode); 
+                   console.log('xhr.responseText : ' + xhr.responseText); 
+                   console.log('textStatus : ' + textStatus); 
+                   console.log('errorThrown : ' + errorThrown); 
+            }
+        }); 
+
+        function fn_ajax1(data) {
+            $('#box8').text(data);
+
+        }
+    </script>
+
+    <!-- 연습3. 네이버 API 책 검색 결과 화면에 나타내기 -->
+    <div id="box9">
+        <ul>
+            <li>전체 검색 결과: <span id="total"></span></li>
+            <li>검색일시: <span id="lastBuildDate"></span></li>
+        </ul>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>링크</td>
+                    <td>썸네일</td>
+                    <td>저자</td>
+                    <td>정상가격</td>
+                    <td>할인가격</td>
+                    <td>출판사</td>
+                    <td>출판일</td>
+                    <td>ISBN</td>
+                    <td>미리보기(최대200자)</td>
+                </tr>
+            </thead>
+            <tbody id="search_result"></tbody>
+        </table>
+    </div>
+
+    <script>
+
+        $.ajax({
+            'url' :  '15_search.xml',
+            'dataType' : 'xml',
+            'success'  : function (data) {
+                fn_ajax2(data);
+            },
+            'error' :  function () {
+                alert('오류발생');
+            }
+        });
+        function fn_ajax2(data) {
+            // data : 전체 XML
+            // $(data) : jquery wrapper로 묶어야 각종 메소드 사용가능
+            $('#total').text($(data).find('total').text());
+            $('#lastBuildDate').text($(data).find('lastBuildDate').text());
+            let result = '';
+            $.each($(data).find('item'), function (i,item) {
+              result += '<tr>';
+                result += '<td>' + $(item).find('title').html() + '</td>';
+                result += '<td><a href="' + $(item).find('link').text() + '">클릭</a></td>';
+                result += '<td><img src="' + $(item).find('image').text() + '" width="100px height="120px"></td>';
+                result += '<td>' + $(item).find('author').text() + '</td>';
+                result += '<td>' + $(item).find('price').text() + '</td>';
+                result += '<td>' + $(item).find('discount').text() + '</td>';
+                result += '<td>' + $(item).find('publisher').text() + '</td>';
+                result += '<td>' + $(item).find('pubdate').text() + '</td>';
+                result += '<td>' + $(item).find('ISBN').text() + '</td>';
+                result += '<td>' + $(item).find('description').html() + '</td>';
+             result += '</tr>';
+
+            });
+            $('#search_result').html(result);
+
+        }
+    </script>
+    <!-- 연습4. 자동자 정보 가져오기 -->
+    <div id="box10"></div>
+    <script>
+        $.ajax({
+            'url' : '15_data2.json',
+            'dataType' : 'json',
+            'success' : function (data) {  //받아온 데이터
+                fn_ajax3(data);
+            },
+            'error' : function () {
+                alert(xhr.statusCode);
+            }
+        });
+        function fn_ajax3(car) {
+            // data = "{}";
+            // JSON.parse(data) == {}
+            //let car = JSON.parse(data);
+            let result = '<ul>';
+        
+            result += '<li>모델: ' + car.model + '</li>';
+            result += '<li>제조사: ' + car.maker + '</li>';
+            result += '<li>가격 : ' + car.price + '</li>';
+
+            result += '<li> 옵션: ';
+            $.each(car.option ,  function (i, item) {
+                result += item + '&nbsp;';
+            });
+            result+='</li>';
+            result += '<li>' + car.info.year + '</li>';
+            result += '<li>' + car.info.discount + '</li>';
+            result += '</ui>';
+
+            $('#box10').html(result);
+
+        }
+    </script>
+
+
     
 </body>
 </html>
