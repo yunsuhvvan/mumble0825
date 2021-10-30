@@ -25,6 +25,7 @@
 				location.href = '01_linkB.jsp?cmd=' + cmd;
 			});
 		});
+		
 	</script>
 	<input type="button" value="시간" data-cmd="time" class="btn_send">
 	<input type="button" value="날짜" data-cmd="date" class="btn_send">
