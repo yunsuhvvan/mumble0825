@@ -9,11 +9,11 @@
 <body>
 
 	<%-- 1. <a> 태그로 파라미터 보내기 --%>
-	<a href="/JSP/ex04_parameter/01_linkB.jsp">이동</a>
+	<a href="/JSP/ex04_parameter/01_parameterB.jsp">이동</a>
 	<br>
-	<a href="01_linkB.jsp">이동</a>
+	<a href="01_parameterB.jsp">이동</a>
 	<br>
-	<a href="01_linkB.jsp?name=윤수환&age=28">전송</a>
+	<a href="01_parameterB.jsp?name=민경태&age=44">전송</a>
 	
 	
 	<%-- 2. location 객체로 파라미터 보내기 --%>
@@ -22,10 +22,9 @@
 		$(document).ready(function(){
 			$('.btn_send').on('click', function(){
 				let cmd = $(this).data('cmd');
-				location.href = '01_linkB.jsp?cmd=' + cmd;
+				location.href = '01_parameterB.jsp?cmd=' + cmd;
 			});
 		});
-		
 	</script>
 	<input type="button" value="시간" data-cmd="time" class="btn_send">
 	<input type="button" value="날짜" data-cmd="date" class="btn_send">

@@ -8,23 +8,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-		
 </head>
 <body>
 
 	<%
-		request.setCharacterEncoding("utf-8");
-		// request에 저장된 속성 꺼내기
+		request.setCharacterEncoding("UTF-8");
+	
+		/* request에 저장된 속성 꺼내기 */
 		String name = (String)request.getAttribute("name");
 		int age = (int)request.getAttribute("age");
 	%>
+	<h1>이름 : <%=name%></h1>
+	<h1>나이 : <%=age%></h1>
 	
-	<h1>이름 : <%=name %></h1>
-	<h1>나이 : <%=age %></h1>
 	
-	<%-- "request"에 저장된 속성은 EL로 사용할 수 있다. --%>
-	<div>${name }</div>
-	<div>${age }</div>
+	<%-- request에 저장된 속성은 EL로 사용할 수 있다. --%>
+	<div>${name}</div>
+	<div>${age}</div>
 	
+
 </body>
 </html>

@@ -8,16 +8,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-		
 </head>
 <body>
-	
-		<%-- forward 태그 --%>
-		<%-- 기존 요청(request) + 새로운 파라미터 추가 가능 --%>
-		<jsp:forward page="02_forward_tagC.jsp">
-			<jsp:param value="28" name="age"/>
-		</jsp:forward>
-	
-	
+
+	<%-- forward 태그 --%>
+	<%-- 기존 요청(request) + 새로운 파라미터 추가 가능 --%>
+	<jsp:forward page="02_forward_tagC.jsp">
+		<jsp:param value="44" name="age" />
+	</jsp:forward>
+
 </body>
 </html>

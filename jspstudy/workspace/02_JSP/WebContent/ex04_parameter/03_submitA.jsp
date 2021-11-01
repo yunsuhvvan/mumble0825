@@ -8,31 +8,34 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#login_form').on('submit', function(event){
+				if ($('#id').val() == '') {
+					alert('아이디를 입력해 주세요');
+					$('#id').focus();
+					event.preventDefault();
+					return false;
+				} else if ($('#pwd').val() == '') {
+					alert('비밀번호를 입력해 주세요');
+					$('#pwd').focus();
+					event.preventDefault();
+					return false;
+				}
+				return true;
+			});
+		});
+	</script>
 </head>
 <body>
 
-	<%
-		request.setCharacterEncoding("UTF-8");
-	
-		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
-		
-		// id + pwd : bean 또는 map 생성
-		// DB로 보내고 결과 받음
-		// 받은 회원 있으면 로그인 처리 : session에 회원 정보 저장
-		
-		boolean result = true;  // DB 갔다 온 결과라고 가정
-	%>
-	
-	<script>
-		let result = <%=result%>;
-		if (result == true) {
-			// 성공하면 갈 곳
-		} else {
-			alert('일치하는 회원이 없습니다.');
-			history.back();
-		}
-	</script>
+	<form action="03_parameterB.jsp" method="post" id="login_form">
+		<input type="text" name="id" id="id">
+		<br>
+		<input type="password" name="pwd" id="pwd">
+		<br>
+		<button>로그인</button>
+	</form>
 
 </body>
 </html>

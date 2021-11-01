@@ -8,15 +8,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-		
 </head>
 <body>
+
+	<%
+		request.setCharacterEncoding("UTF-8");
+		String name = request.getParameter("name");
+	%>
 	
-		<%
-			request.setCharacterEncoding("UTF-8");
-			String name = request.getParameter("name");
-		%>
-		<h1><%=request.getParameter("name") %></h1>
-	
+	<h1>이름 : <%=name%></h1>
+
 </body>
 </html>
