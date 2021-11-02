@@ -11,31 +11,35 @@
 </head>
 <body>
 
+
+
 	<%
-		/*
-			쿠키 삭제하기 - 1
-			1. 모든 쿠키를 읽는다.
-			2. 삭제할 쿠키의 유효 기간을 0으로 설정한다.
-			3. 동일한 이름의 쿠키로 덮어쓰기한다.
-		*/
-		
-		// agree, address 쿠키를 모두 삭제하기
-		
-		/*
-		Cookie[] cookies = request.getCookies();
+	/*
+	쿠키 삭제하기
+	1. 모든 쿠키를 읽는다
+	2. 삭제할 쿠키와 동일한 이름의 쿠키를 만든다.
+		삭제할 쿠키의 유효기간을 0으로 설저한다.
+	3. 동일한 이름의 쿠키로 덮어쓰기한다.
+	*/
 	
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("agree") || cookie.getName().equals("address")) {
-				cookie.setMaxAge(0);
-				response.addCookie(cookie);
-			}
+	//agree ,address 쿠키를 모두 삭제하기
+	Cookie[] cookies = request.getCookies();
+	
+	for(Cookie cookie : cookies){
+		if(cookie.getName().equals("agree") || cookie.getName().equals("address")){
+			Cookie cookie1 = new Cookie(cookie.getName(), "");
+			cookie1.setMaxAge(0);
+			
+			response.addCookie(cookie1);
+			
 		}
-		*/
-		
-		/*
-			쿠키 삭제하기 - 2
+	}
+	
+	
+			/*
+			쿠키 삭제하기 -2
 			1. 동일한 쿠키를 만든다.
-			2. 유효 기간을 0으로 설정한다.
+			2. 유효기간을 0으로 설정한다.
 			3. 동일한 이름의 쿠키로 덮어쓰기한다.
 		*/
 		
@@ -47,7 +51,13 @@
 		cookie2.setMaxAge(0);
 		response.addCookie(cookie2);
 		
+				
+	
 	%>
+
+
+
+
 
 </body>
 </html>

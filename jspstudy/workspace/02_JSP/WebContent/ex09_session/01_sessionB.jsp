@@ -11,27 +11,33 @@
 </head>
 <body>
 
+
 	<%
-		String name2 = null;
-		if (session.getAttribute("name") != null) {
+		String name2= null;
+		if(session.getAttribute("name") != null){
 			name2 = (String)session.getAttribute("name");
-		} else {
-			name2 = "민혁";  // session이 없을 때 기본 값
+			
+		} else{
+			name2="민혁"; // session이 없을때 기본값
+			
+		}
+		int age2 =0;
+		if(session.getAttribute("age") !=null){
+			 age2 = (int)session.getAttribute("age");
+			
 		}
 		
-		int age2 = 0;  // session이 없을 때 기본 값
-		if (session.getAttribute("age") != null) {
-			age2 = (int)session.getAttribute("age");
-		}
 	%>
-
-	<h1>session 이름 : <%=name2%></h1>
-	<h1>session 나이 : <%=age2%></h1>
 	
-	<h1>session 이름 : ${name}</h1>
-	<h1>session 나이 : ${age}</h1>
-
+	<h1>session 이름 : <%=name2 %></h1>	 <!--  변수에 접근 -->
+	<h1>session 나이 : <%=age2 %></h1>
+	
+	<h1>session 이름 : ${name }</h1>  <!--  속성에 바로 접근 가능하다.. -->
+	<h1>session 나이 : ${age }</h1>
+	
+	
 	<input type="button" value="세션초기화" onclick="location.href='01_sessionC.jsp'">
+
 
 </body>
 </html>

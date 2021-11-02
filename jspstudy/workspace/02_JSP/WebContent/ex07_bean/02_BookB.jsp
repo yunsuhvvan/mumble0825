@@ -10,37 +10,36 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body>
-
-	<%-- 사용은 자제할 것. --%>
-
-	<%
-		request.setCharacterEncoding("UTF-8");
-	%>
 	
+	<%
+		request.setCharacterEncoding("utf-8");
+		
+		
+	%>
 	<%-- 디폴트 생성자로 만든 빈과 동일함. --%>
-	<jsp:useBean id="p1" scope="page" class="ex07_bean.Book"></jsp:useBean>
-
+	<jsp:useBean id="p1" class="ex07_bean.Book"></jsp:useBean>
+	
 	<%-- setter 호출 --%>
-	<jsp:setProperty property="*" name="p1" />
-
+	
+	<jsp:setProperty property="*" name="p1"/>    <%-- p1에 모든 properties들을 저장한다 --%>
+	
 	<%-- getter 호출 --%>
-	<h1>제목 : <jsp:getProperty property="title" name="p1" /></h1>
-	<h1>저자 : <jsp:getProperty property="author" name="p1" /></h1>
-	<h1>가격 : <jsp:getProperty property="price" name="p1" /></h1>
-
-
-	<%-- 디폴트 생성자로 만든 빈 --%>
+	<h1>제목 : <jsp:getProperty property="title" name="p1"/></h1>
+	<h1>저자 : <jsp:getProperty property="author" name="p1"/></h1>
+	<h1>가격 : <jsp:getProperty property="price" name="p1"/></h1>
+	
+	<h1>제목 : ${p1.title }</h1>
+	
+	<%-- 디폴트 생성자로 만든 빈 --%> 
+	
 	<jsp:useBean id="p2" class="ex07_bean.Book"></jsp:useBean>
-
-	<%-- 특정 값으로 세팅한 bean --%>
-	<jsp:setProperty name="p2" property="title" value="소나기" />
-	<jsp:setProperty name="p2" property="author" value="황순원" />
-	<jsp:setProperty name="p2" property="price" value="20000" />
+	<%-- 특정 값으로 세팅한 bean  --%>
+	<jsp:setProperty  name="p2" value="소나기" property="title" />
+	<jsp:setProperty  name="p2" value="저자" property="author" />
+	<jsp:setProperty  name="p2" value="가격" property="price" />
 
 	<h1>제목 : ${p2.title}</h1>
 	<h1>저자 : ${p2.author}</h1>
-	<h1>가격 : ${p2.price}</h1>
-
-
+	<h1>가겨 : ${p2.price}</h1>
 </body>
 </html>
