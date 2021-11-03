@@ -18,15 +18,20 @@ public class LoginServlet extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. captcha key 받아오기
-		String captcha = GetKey.getkey();
+		String key = GetKey.getkey();
+		GetImage.getImage(key,request);
+		request.setAttribute("key", key);
 		
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
+		// 로그인 화면으로 가서 다운받은 이미지 보여주기
+		// 포워드 : request 가지고 이동 - request에 파일명 저장하고 포워딩하기
+		// 리다이렉트 : request 없이 이동
+		request.getRequestDispatcher("login.jsp").forward(request,response);
 		
-		out.println("<script>");
-		out.println("alert('"+captcha+"');");
-		out.println("history.back();");
-		out.println("</script>");
+//		request.getRequestDispatcher("폴더/login.jsp").forward(request,response);
+		
+		
+		//request.getServletContext().getRealPath(path);  //암기하기
+		
 	}
 
 	
