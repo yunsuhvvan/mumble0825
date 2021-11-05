@@ -19,7 +19,7 @@
 		String realPath = request.getServletContext().getRealPath("storage");
 		File file = new File(realPath, filename);
 		BufferedReader br = new BufferedReader(new FileReader(file));
-		StringBuilder sb = new StringBuilder();;
+		StringBuilder sb = new StringBuilder();
 		String buffer = null;
 		while ((buffer = br.readLine()) != null) {
 			sb.append(buffer + "<br>");
