@@ -11,10 +11,10 @@ public class EmpFindEmpListService implements EmpService {
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		EmpDAO empDAO = EmpDAO.getInstance();
+		EmpDAO empDAO = EmpDAO.getInstance(); 
 		request.setAttribute("empList", empDAO.selectEmpList());
 		
-		return new ModelAndView("views/selectEmpList.jsp", false);  //forwarding으로
+		return new ModelAndView("views/selectEmpList.jsp", false);  //forwarding으로  request가 있으니깐
 		
 	}
 

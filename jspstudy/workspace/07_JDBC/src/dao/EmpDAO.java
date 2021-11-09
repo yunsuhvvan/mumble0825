@@ -67,7 +67,7 @@ public class EmpDAO {
 			sql = "INSERT INTO emp VALUES (emp_seq.nextval, ?, SYSDATE)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, empDTO.getName());
-			result = ps.executeUpdate();
+			result = ps.executeUpdate();  // 실행결과는 0 or 1 이다
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -98,10 +98,11 @@ public class EmpDAO {
 		int result = 0;
 		try {
 			con = dataSource.getConnection();
-			sql = "UPDATE emp SET name = ? WHERE num = ?";
+			sql = "UPDATE emp SET name = ?,hire = ? WHERE num = ?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, empDTO.getName());
-			ps.setLong(2, empDTO.getNum());
+			ps.setDate(2, empDTO.getHire());
+			ps.setLong(3, empDTO.getNum());
 			result = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,7 +140,7 @@ public class EmpDAO {
 		List<EmpDTO> empList = new ArrayList<EmpDTO>();
 		try {
 			con = dataSource.getConnection();
-			sql = "SELECT num, name, hire FROM emp";
+			sql = "SELECT num, name, hire FROM emp ORDER BY num DESC";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {  //여러개이기 때문에

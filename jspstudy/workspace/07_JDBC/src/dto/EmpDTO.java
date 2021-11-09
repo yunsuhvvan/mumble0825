@@ -11,7 +11,8 @@ public class EmpDTO {
 	public EmpDTO() {
 		
 	}
-
+//	또한 DB에서 꺼낸 값을 DTO에서 임의로 조작할 필요가 없기 때문에 
+//	DTO에는 Setter를 만들 필요가 없고 생성자에서 값을 할당한다.
 
 	public EmpDTO(String name) {
 		super();
