@@ -1,0 +1,34 @@
+package model;
+
+import java.io.IOException;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import common.ModelAndView;
+import dao.EmpDao;
+
+public class FindOneService implements EmpService {
+
+	@Override
+	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+			// 파라미터 num 받아야 함 (num이 전달되지 않으면 null, null이면 "0"을 대신 사용)
+			Optional<String> optNum = Optional.ofNullable(request.getParameter("num"));
+			Long num = Long.parseLong(optNum.orElse("0"));  //num의 type이 Long이니깐..
+			
+			//DB 접속하는 DAO
+			 
+			EmpDao dao =  EmpDao.getInstance();
+			
+			
+			// 사원번호 num과 일치하는 사원 정보를 DB에서 가져오기
+			// 가져온 사원 정보를 request에 저장하고, detail.jsp로 이동하기
+			
+			request.setAttribute("emp", dao.selectEmpByNum(num));  // DB에서 가지고 온 사원 저장
+			
+		return new ModelAndView("views/detail.jsp", false);
+	}
+
+}
