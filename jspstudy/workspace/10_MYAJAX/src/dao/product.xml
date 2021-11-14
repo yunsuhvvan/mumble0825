@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dao.product">
+	
+<select id="selectList" resultType="dto.ProductDto" >
+	SELECT pno, name, price, made
+	  FROM product1
+     ORDER BY pno
+</select>
+
+<insert id="insert" parameterType="dto.ProductDto">
+	INSERT INTO product1
+	VALUES (product1_seq.nextval, #{name}, #{price}, SYSDATE)
+</insert>
+
+
+<select id="nameCheck" parameterType="String" resultType="dto.ProductDto">
+	SELECT pno
+	  FROM product1
+	 WHERE name = #{name}
+</select>
+
+
+<select id="lastName" resultType="dto.ProductDto">
+	SELECT name
+	  FROM product1
+	 WHERE pno = (SELECT MAX(pno) FROM product1)
+</select>
+
+
+	
+</mapper>
