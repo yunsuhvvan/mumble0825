@@ -16,10 +16,7 @@ public class LastNameCheck implements ProductService {
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-			ProductDao dao =  ProductDao.getInstance();
-			
-			
-			Product product = dao.lastCheck();
+			Product product = ProductDao.getInstance().lastCheck();
 			
 			
 //			------------------------------------------------------

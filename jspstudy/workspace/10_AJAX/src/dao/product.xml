@@ -40,4 +40,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   FROM product
 		  WHERE pno = (SELECT MAX(pno) FROM product)
 	</select>
+	
+	
+	<!--  5. 제품 삭제   #{파라미터}-->
+	<delete id="delete" parameterType="Long">
+		DELETE
+		  FROM product
+		 WHERE pno = #{pno}     
+	</delete>
 </mapper>

@@ -60,6 +60,16 @@ public class ProductDao {
 		
 	}
 	
+	// 5. 제품 삭제
+	
+	public int delete(Long pno) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete("dao.product.delete" , pno);
+		if(result>0) ss.commit();
+		ss.close();
+		return result;
+	}
+	
 	
 	
 	

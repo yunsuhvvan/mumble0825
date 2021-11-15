@@ -23,7 +23,7 @@ public class NameCheckService implements ProductService {
 		
 		//nameCheck()
 		// result= true 이면 동일한 제품 없음
-		boolean result = dao.nameCheck(name);  // 메서드가 boolean 타입이라 ..? name안에는 true or false가 들어있다
+		boolean result = dao.nameCheck(name);  // 메서드의 반환타입이 boolean 이므로 호출결과를 저장하는 변수의 타입 역시 boolean 타입의 참조변수이여야한다.
 		//----------------------------JSON--------------------------------------------------------------------------------------------
 		// result를 ajax로 반환할 수 있도록 JSON 데이터로 변환
 		JSONObject obj = new JSONObject();

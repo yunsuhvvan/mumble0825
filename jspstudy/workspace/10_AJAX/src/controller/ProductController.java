@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ModelAndView;
+import model.DeleteService;
 import model.InsertService;
 import model.LastNameCheck;
 import model.NameCheckService;
@@ -40,11 +41,14 @@ public class ProductController extends HttpServlet {
 		
 		switch(command) {
 		
+		case "selectListForm.do" :
+			mav = new ModelAndView("views/selectList.jsp", false);
+			break;
 		case "selectList.do" :
 			ps = new SelectListService();
 			break;
 		case "insertForm.do" :
-			mav = new ModelAndView("views/insert.jsp", true);
+			mav = new ModelAndView("views/selectList.jsp", true);
 			break;
 		case "nameCheck.do" :
 			ps = new NameCheckService();
@@ -52,12 +56,12 @@ public class ProductController extends HttpServlet {
 		case "insert.do" :
 			ps = new InsertService();
 			break;
-			
 		case "prevInsertName.do" :
 			ps = new LastNameCheck();
 			break;
-		
-		
+		case "delete.do" : 
+			ps = new DeleteService();
+			break;
 		}
 		
 		if(ps !=null) {

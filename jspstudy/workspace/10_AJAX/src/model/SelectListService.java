@@ -1,10 +1,17 @@
 package model;
 
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import common.ModelAndView;
 import dao.ProductDao;
+import dto.Product;
 
 public class SelectListService implements ProductService {
 
@@ -13,10 +20,24 @@ public class SelectListService implements ProductService {
 			
 		
 		
+		List<Product> list = ProductDao.getInstance().selectList();
 		
-		request.setAttribute("list", ProductDao.getInstance().selectList());// 공부하기
+		//-----------------------------------------------------------
+//		JSONObject obj  = new JSONObject();
+//		obj.put("list", list);
 		
-		return new ModelAndView("views/selectList.jsp" , false);
+		
+		JSONArray arr = new JSONArray(list);     //JSONObject 가 여러개이므로 Array를 사용해야한다.
+		
+		
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		out.println(arr);						// "arr"이 'ajax" success로 넘기는 데이터
+		out.close();
+		
+		// 페이지 이동 막기 위해서 null 반환...
+		return null;
 	}
 
 }
