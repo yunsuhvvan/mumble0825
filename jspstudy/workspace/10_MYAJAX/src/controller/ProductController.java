@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ModelAndView;
+import model.ProductDelete;
 import model.ProductInsert;
 import model.ProductLastName;
 import model.ProductName;
@@ -35,6 +36,9 @@ public class ProductController extends HttpServlet {
 		ProductService ps = null;
 				
 		switch(command) {
+		case "selectListForm.go" :
+			mav = new ModelAndView("views/selectList.jsp", false);
+			break;
 		
 		case "selectList.go" :
 			ps = new ProductselectList();
@@ -54,9 +58,10 @@ public class ProductController extends HttpServlet {
 		case "LastNameCheck.go" :
 			ps = new ProductLastName();
 			break;
-		
-		
 			
+		case "delete.go" :
+			ps = new ProductDelete();
+			break;
 		}
 		
 		if(ps != null) {

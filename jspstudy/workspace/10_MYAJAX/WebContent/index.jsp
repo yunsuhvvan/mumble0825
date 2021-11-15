@@ -11,7 +11,7 @@
 </head>
 <body>
 		
-		<a href="/MYAJAX/selectList.go">제품 목록으로 이동하기</a>
+		<a href="/MYAJAX/selectListForm.go">제품 목록으로 이동하기</a>
 		
 </body>
 </html>

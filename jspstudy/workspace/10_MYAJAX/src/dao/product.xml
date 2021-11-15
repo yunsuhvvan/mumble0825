@@ -31,5 +31,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 
+<delete id="delete" parameterType="Long">
+	DELETE 
+	  FROM product1
+	 WHERE pno = #{pno} 
+</delete>
+
 	
 </mapper>
