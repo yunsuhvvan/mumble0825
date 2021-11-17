@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dao.notice">
+	
+	<!--  전체 목록 반환 -->
+	<select id="selectNoticeList" resultType="dto.Notice">
+		SELECT nno, writer, title, content, hit, ip, ndate, nlastmodified
+ 		  FROM notice
+	</select>
+
+	<!--댓글..  -->
+	<select id="selectNoticeview" resultType="dto.Notice" parameterType="Long">
+		SELECT nno, writer, title, content, hit, ip, ndate, nlastmodified
+ 		  FROM notice
+ 		 WHERE nno = #{nNo}
+	</select>
+	
+	<update id="updateNoticeHit"  parameterType="Long">
+		UPDATE notice
+		   SET hit = hit +1
+		 WHERE nno =#{nNo}
+	</update>
+	
+</mapper>
