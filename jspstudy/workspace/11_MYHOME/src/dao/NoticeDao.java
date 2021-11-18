@@ -57,8 +57,29 @@ public class NoticeDao {
 	}
 	
 	
+	public int insertNotice (Notice notice) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.insert("dao.notice.insertNotice" , notice);
+		if(result > 0) ss.commit();
+		ss.close();
+		return result;
+	}
 	
+	public int updateNotice(Notice notice) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.update("dao.notice.updateNotice", notice);
+		if(result > 0) ss.commit();
+		ss.close();
+		return result;
+	}
 	
+	public int deleteNotice(Long nNo) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete("dao.notice.deleteNotice", nNo);
+		if(result > 0) ss.commit();
+		ss.close();
+		return result;
+	}
 	
 	
 	

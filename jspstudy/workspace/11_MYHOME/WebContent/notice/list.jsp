@@ -1,3 +1,4 @@
+<%@page import="dto.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
@@ -13,6 +14,12 @@
 	
 </head>
 <body>
+		
+		<div>
+			<c:if test="${loginUser.id == 'admin'}">
+		 	<a href="/MYHOME/insertForm.notice">공지사항 작성하기</a>
+		 	</c:if>
+		</div>
 
 		
 		<table border="1">

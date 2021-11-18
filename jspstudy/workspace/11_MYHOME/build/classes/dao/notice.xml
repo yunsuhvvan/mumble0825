@@ -24,4 +24,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE nno =#{nNo}
 	</update>
 	
+	<insert id="insertNotice" parameterType="dto.Notice">
+		INSERT INTO notice
+		VALUES(notice_seq.nextval, #{writer}, #{title}, #{content}, 0, #{ip}, SYSDATE, SYSDATE    )
+	</insert>
+	
+	
+	<update id="updateNotice" parameterType="dto.Notice">
+		UPDATE notice
+		   SET 
+		   	   title = #{title},
+		   	   content = #{content},
+		   	   nlastmodified = SYSDATE 
+		 WHERE nno = #{nNo}
+	</update>
+	
+	<delete id="deleteNotice" parameterType="Long">
+		DELETE
+		  FROM notice
+		 WHERE nno = #{nNo}
+	</delete>
+	
+	
+	
 </mapper>

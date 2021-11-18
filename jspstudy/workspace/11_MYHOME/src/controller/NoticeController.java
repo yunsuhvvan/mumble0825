@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ModelAndView;
+import service.notice.NoticeDeleteService;
+import service.notice.NoticeInsertService;
 import service.notice.NoticeListService;
 import service.notice.NoticeService;
+import service.notice.NoticeUpdateService;
 import service.notice.NoticeViewService;
 
 @WebServlet("*.notice")
@@ -49,6 +52,22 @@ public class NoticeController extends HttpServlet {
 		case "view.notice" :
 			service = new NoticeViewService();
 			break;
+		case "insertForm.notice" : 
+			mav = new ModelAndView("notice/insert.jsp", false);  // 단순 이동할떄는 포워드하세요~!
+			break;
+		case "insert.notice" :
+			service = new NoticeInsertService();
+			break;
+		case "updateForm.notice":
+			mav = new ModelAndView("notice/update.jsp", false);
+			break;
+		case "update.notice" :
+			service = new NoticeUpdateService();
+			break;
+		case "delete.notice" : 
+			service = new NoticeDeleteService();
+			break;
+		
 		
 		}
 		
@@ -66,7 +85,6 @@ public class NoticeController extends HttpServlet {
 		if(mav == null) return;
 		
 		// mav가 null이 아닌 경우 : MVC 패턴으로 페이지 이동이 있음.
-		
 		if(mav.isRedirect()) {
 			response.sendRedirect(mav.getView());
 		} else {

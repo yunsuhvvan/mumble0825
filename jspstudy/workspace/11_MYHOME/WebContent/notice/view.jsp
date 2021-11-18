@@ -26,13 +26,40 @@
 			내용<br>
 			<pre>${notice.content}</pre>
 			
+			
+			<!-- 
+				 목록 : 누구나
+				 수정, 삭제 : 작성자만
+			 -->
+			<input type="button" value="목록" onclick="location.href='list.notice'">
+			<c:if test="${loginUser.id == notice.writer}">
+				<input type="button" value="수정" onclick="location.href='updateForm.notice'">
+				<input type="button" value="삭제" onclick="fnNoticeDelete()">
+			</c:if>
+			
+			<script>
+				function fnNoticeDelete() {
+					if(confirm('게시글을 삭제할까요?')){
+						location.href='delete.notice?nNo='+ ${notice.nNo};
+					}
+				}
+			</script>
+			
 			<hr>
+			
+			<!-- 
+				작성자 : 로그인 유저 아이디
+				댓글달기 : 로그인 유저만 오픈
+			 -->
 			<form action="/MYHOME/insert.reply" method="post" id="f">
 				<label for="writer">작성자</label>
-				<input type="text" name="writer" id="writer"><br>
+				<input type="text" name="writer" id="writer" value="${loginUser.id}" readonly><br>
 				<textarea rows="5" cols="30" name="content"></textarea><br>
 				<input type="hidden" name="nNo" value="${notice.nNo}">   
-				<button>댓글달기</button>
+				
+				<c:if test="${loginUser != null }">
+					<button>댓글달기</button>
+				</c:if>
 			</form>
 			<hr>
 			<div>
