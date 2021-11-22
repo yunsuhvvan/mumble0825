@@ -42,5 +42,7 @@ class BoardTestCase {
 		System.out.println("게시글가져오기_테스트");
 		assertNotNull(BoardDAO.getInstance().selectBoardBybNo("99999"));
 	}
+	
+	
 
 }
