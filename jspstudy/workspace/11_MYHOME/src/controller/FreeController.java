@@ -9,18 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ModelAndView;
-import service.member.MemberIdCheckService;
-import service.member.MemberJoinService;
-import service.member.MemberLoginService;
-import service.member.MemberLogoutService;
-import service.member.MemberQuitService;
-import service.member.MemberService;
+import service.free.FreeInsertService;
+import service.free.FreeListService;
+import service.free.FreeService;
+import service.free.FreeUpdateService;
+import service.free.FreeViewService;
 
-@WebServlet("*.member")
-public class MemberController extends HttpServlet {
+@WebServlet("*.free")
+public class FreeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MemberController() {
+    public FreeController() {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,26 +33,28 @@ public class MemberController extends HttpServlet {
 			String command = requestURI.substring(contextPath.length()+1);
 			
 			ModelAndView mav = null;
-			MemberService service = null;
+			FreeService service = null;
 			switch(command) {
-			case "login.member" :
-				service = new MemberLoginService();
+			
+			case "list.free" : 
+				service = new FreeListService();
 				break;
-			case "logout.member" :
-				service = new MemberLogoutService();
-			case "joinForm.member" :
-				mav = new ModelAndView("member/join.jsp", false);
+			case "insertForm.free" :
+				mav = new ModelAndView("free/insert.jsp", false);
 				break;
-			case "join.member" :
-				service = new MemberJoinService();
+			case "insert.free" :
+				service = new FreeInsertService();
 				break;
-			case "idCheck.member" :
-				service = new MemberIdCheckService();
+			case "view.free" :
+				service = new FreeViewService();
 				break;
-			case "quit.member"  :
-				service = new MemberQuitService();
+			case "updateForm.free" : 
+				mav = new ModelAndView("free/update.jsp", false);
 				break;
 				
+			case "update.free" :
+				service = new FreeUpdateService();
+				break;
 			}
 			
 			if(service != null) {

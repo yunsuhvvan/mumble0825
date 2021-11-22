@@ -18,6 +18,7 @@
 			<nav>
 				<ul>
 					<li><a href="/MYHOME/list.notice">공지사항</a></li>
+					<li><a href="/MYHOME/list.free">자유게시판</a></li>
 				</ul>
 			</nav>
 			 <c:if test="${loginUser !=null}">
@@ -25,6 +26,8 @@
 		   			<h4>
 		   			${loginUser.name}님 반갑습니다.
 		   			<input type="button" value="로그아웃" onclick="location.href='logout.member'">
+		   			<input type="button" value="회원탈퇴" onclick="location.href='quit.member'">
+		   			
 		   			</h4>
 		   		</div>
 		     </c:if>

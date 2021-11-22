@@ -24,7 +24,7 @@ public class MemberDao {
 	}
 	
 	
-	public dto.Member selectMember(Member member) {
+	public Member selectMember(Member member) {
 		SqlSession ss = factory.openSession();
 		Member user = ss.selectOne("dao.member.selectMember",member);
 		ss.close();
@@ -48,6 +48,22 @@ public class MemberDao {
 		return result;
 	}
 	
+	public int deleteMember(Long mNo) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete("dao.member.deleteMember",mNo);
+		if(result > 0)ss.commit();
+		ss.close();
+		return result;
+		
+	}
+	
+	public int deleteMemberLog(String id) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete("dao.member.deleteMemberLog",id);
+		if(result > 0)ss.commit();
+		ss.close();
+		return result;
+	}
 	
 	
 }
