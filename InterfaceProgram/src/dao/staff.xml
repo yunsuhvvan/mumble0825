@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dao.staff">
+	
+	<select id="selectStaffList" resultType="dto.Staff">
+		SELECT sno, name, dept, regdate
+		  FROM staff
+	</select>
+	
+	
+	<insert id="insertStaff" parameterType="dto.Staff">
+		INSERT INTO staff
+		VALUES ( #{sNo} , #{name} , #{dept}, SYSDATE)
+	</insert>
+	
+	<select id="selectStaffBysNo" resultType="dto.Staff" parameterType="String">
+	  SELECT sno, name, dept, regdate
+	    FROM staff
+	   WHERE sno = #{sNo}
+	</select>
+	
+	<delete id="deleteStaff" parameterType="String">
+		DELETE
+		  FROM staff
+		 WHERE sno = #{sNo}
+	</delete>
+	
+</mapper>
