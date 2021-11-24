@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>제목</title>
+    </head>
+    <body>
+        <!-- 
+            테이블 만들기
+              1. <table> </table>
+              2. border 속성 : 테두리의 두께 , 생략하면 테두리가 안 보임
+              3. <table> 태그의 하위태그
+                  1)<thead></thead> : 테이블의 제목 영역, 생략 가능 
+                  2) <tbody></tbody>: 테이블의 본문, 반드시 사용됨
+                  3) <tfoot></tfoot>: 테이블의 하단 영역, 생략 가능
+                  4) 작성순서에 상관없이 무조건 thead -> tbody -> tfoot 순서로 나타남
+              4. <thead> ,<tbody>, <tfoot> 태그의 하위 태그
+                  1) <tr></tr> :행 만듬
+    
+              5. <tr>태그 하위 태그
+                  1) <td></td>  :열 만듬, 일반 열
+                  2) <th></th>  :열 만듬, 제목 열 (굵게 표시, 가운데 정렬)
+         -->    
+         <h1>제품 테이블</h1>
+         <table border="10">
+             <thead>
+                <tr>
+                    <th>제품번호</th>
+                    <th>제품명</th>
+                    <th>제품가격</th>
+                    <th>제조일자</th>
+                </tr>
+             </thead>
+
+             <tbody>
+
+                <tr>
+                    <td>1234567890</td>
+                    <td>홈런볼</td>
+                    <td>1500</td>
+                    <td>2021-09-28</td>
+
+                </tr>
+                <tr>
+                    <td>1234567890123</td>
+                    <td>맛동산</td>
+                    <td>2500</td>
+                    <td>2021-09-28</td>
+                </tr>
+             </tbody>
+
+         </table>
+
+         <h1>이미지 테이블</h1>
+         <table>
+
+
+            <tbody>
+
+                <tr>
+                    <td><img src="../images/fruit1.jpg" width="200px"  height="200px"></td>
+                    <td><img src="../images/fruit2.jpg" width="200px"  height="200px"></td>
+                    <td><img src="../images/fruit3.jpg" width="200px"  height="200px"></td>
+                    <td><img src="../images/fruit4.jpg" width="200px"  height="200px"></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <br><br>
+                        <strong>슈퍼스타 뮬</strong><br>
+                        ORIGINALS <br>
+                        <strong>89,000 <sub>원</sub></strong> <br>
+                        2<sub>colors</sub>
+                    </td>
+                </tr>
+
+            </tbody>
+         </table>
+
+           
+         
+         
+         <!-- 셀 병합
+              1. <td>, <th> 태그에서 설정
+              2. colspan 속성 : 열 병합, 좌우 셀 병합
+              3. rowspan 속성 : 행 병합  상하 셀 병합 
+            
+            -->
+            <br><br>
+            <h1>colspan</h1>
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td>병합없음</td>
+                        <td>병합없음</td>
+                        <td>병합없음</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">2개 병합</td>
+                        <td>병합없음</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">3개 병합</td>
+                    </tr>
+                </tbody>
+
+            </table>
+            
+
+            <h1>rowspan</h1>
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td>병합없음</td>
+                        <td rowspan="2">2개 병합</td>
+                        <td rowspan="3">3개 병합</td>
+                    </tr>
+                    <tr>
+                        <td>병합없음</td>
+                    </tr>
+                    <tr>
+                        <td>병합없음</td>
+                        <td>병합없음</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <h3>연습문제1</h3>
+            <table border="1" style="width: 500px;">
+                <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>나이</th>
+                        <th>주소</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>홍길동</td>
+                        <td>20세</td>
+                        <td>서울시 마포구 노고산동</td>
+                    </tr>
+                    <tr>
+                        <th>특기</th>
+                        <td colspan="2">먹기</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">신체</th>
+                        <td colspan="2">180.0cm</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">83kg</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>연습문제2</h3>
+            <table border="1" style="width: 500px;">
+                <tbody>
+                    <tr>
+                        <td rowspan="5">1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">10</td>
+                        <td>11</td>
+                        <td>12</td>
+                        <td rowspan="2">13</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">19</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <h3>연습문제3</h3>
+            <table border="1" style="width: 500px;">
+                <tbody>
+                    <tr>
+                        <td colspan="4">1</td>
+                        <td rowspan="7">2</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="5">3</td>
+                        <td rowspan="4">4</td>
+                        <td colspan="2">5</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td rowspan="4">7</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">10</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">11</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 
+                기타
+                1. <caption> 태그 : 테이블 제목
+                2. <colgroup> 태그 : 열 전체 선택
+                3. <col> 태그 : <colgroup> 태그의 하위 태그, 각 열 지정
+             -->
+
+             <h1>기타</h1>
+             <table border="1">
+                 <caption>테이블 제목</caption>
+                 <tbody>
+                      <colgroup>
+                        <col style="background-color: red;">     <!--1 열-->
+                        <col span="2" style="background-color: crimson;"> <!--2~3열-->
+                    
+                    </colgroup>
+                    <tr>
+                        <td>1열</td>
+                        <td>2열</td>
+                        <td>3열</td>
+                    </tr>
+                    <tr>
+                        <td>1열</td>
+                        <td>2열</td>
+                        <td>3열</td>
+                    </tr>
+                 </tbody>
+             </table>
+
+
+             <h1>연습문제4</h1>
+             <caption>제주특별자치도 학교현황 (2015기준)</caption>
+             <table border="1">
+                 <tbody>
+                     <colgroup>
+                        <col>
+                        <col span="1" style="background-color: darkgrey;">
+                        <col>
+                        <col span="1" style="background-color: darkgrey;">
+                       
+                    </colgroup>
+                     <tr>
+                         <td>구분</td>
+                         <td>학교수</td>
+                         <td>학급수</td>
+                         <td>학생수</td>
+                         <td>교원수</td>
+                     </tr>
+                     <tr>
+                        <td>유치원</td>
+                        <td>117</td>
+                        <td>252</td>
+                        <td>5,547</td>
+                        <td>474</td>
+                    </tr>
+                    <tr>
+                        <td>합계</td>
+                        <td>300</td>
+                        <td>3,437</td>
+                        <td>86,954</td>
+                        <td>6,111</td>
+                    </tr>
+                 </tbody>
+             </table>
+
+
+             <h1>연습문제5</h1>
+             <caption>우리펜션 객실안내</caption>
+             <table border="1">
+                 <thead style="background-color: darkgrey;">
+                        <td>방 이름</td>
+                        <td>고객구분</td>
+                        <td>정원</td>
+                        <td>가격</td>
+
+                 </thead>
+                <tbody>
+
+                 
+                    <tr>
+                        <td>콜로라도</td>
+                        <td>여성전용</td>
+                        <td rowspan="3">4인실</td>
+                        <td rowspan="4">100,000원</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">아레나도</td>
+                        <td>가족용</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>커플용</td>
+                    </tr>
+
+                    <tr>
+                        <td>엘레나</td>
+                        <td>커플 전용</td>
+                        <td>2인실</td>
+                        
+                    </tr>
+                    
+                </tbody>
+
+                <tfoot style="background-color: darkgrey;">
+
+                    <td colspan="4">6월 15일 까지 전 객실 50%할인</td>
+                </tfoot>
+             </table>
+
+    </body>
+</html>
+

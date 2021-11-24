@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .a img{
+            width: 200px;
+            
+        }
+        .a img:nth-of-type(2), .a > img[src$="eagle.jpg"] {
+            visibility: hidden; 
+            /*visible, hidden*/
+        }
+           /* 이미지 선택하면 숨김 처리 */
+        .b img{
+            width: 200px;
+        }
+     
+        .b img:hover{
+            visibility: hidden;
+        }
+        /* 안 보이는 이미지 선택하면 보이기 */
+        /* 안 보이는 img는 hover가 불가능하기 때문에
+            img의 부모 span을 hover 하도록 구성
+        */
+        .c span>img{
+            visibility: hidden;
+            width: 200px;
+        }
+        
+        .c span:hover >img{
+            visibility: visible;
+
+        }
+       
+        
+        .answer {
+            visibility: hidden;
+        }
+        
+        .view_answer:hover + .answer{
+            visibility: visible;
+        }
+
+
+        
+
+
+    </style>
+</head>
+<body>
+    <div class="a">
+        <img src="../images/dog.jpg" alt="개">
+        <img src="../images/eagle.jpg" alt="독수리">
+        <img src="../images/lion.jpg" alt="사자">
+    </div>
+    <div class="b">
+        <img src="../images/dog.jpg" alt="개">
+        <img src="../images/eagle.jpg" alt="독수리">
+        <img src="../images/lion.jpg" alt="사자">
+    </div>
+    <div class="c">
+        <span><img src="../images/dog.jpg" alt="개"></span>
+        <span><img src="../images/eagle.jpg" alt="독수리"></span>
+        <span><img src="../images/lion.jpg" alt="사자"></span>
+    </div>
+    <br><br><hr>
+
+    <!-- quiz -->
+    <h3>다음 중 블록레벨이 아닌 것은?</h3>
+    <ol>
+        <li>&lt;div&gt;</li>
+        <li>&lt;span&gt;</li>
+        <li>&lt;ul&gt;</li>
+        <li>&lt;p&gt;</li>
+    </ol>
+    <div>
+    <span class="view_answer">정답보기</span>
+    &nbsp;&nbsp;&nbsp;  
+    정답 : [ <span class="answer">2</span> ] 
+</div>
+
+</body>
+</html>

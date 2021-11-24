@@ -1,0 +1,204 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 12px;
+    color: black;
+}
+ul,ol{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+
+}
+.join_header{
+    height: 89px;
+    border-bottom: 1px solid silver;
+    text-align: center;
+}
+.logo >a {
+    display: inline-block;
+    overflow: hidden;
+    width: 140px;      /*블락 레벨이 되면 너비 높이가 부여 가능하다*/
+    height: 36px;
+    margin-top: 28px;
+    background-image: url('https://img2.tmon.kr/resources/shared/p/im/membership/sp-membership.png?v=20210831164155');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    font-size: 0;
+}
+.join_form{
+    width: 500px;
+    margin: 0 auto;
+
+}
+.join_title{
+    margin: 50px 0 0 0 ;
+    font-size: 28px;
+    text-align: center;      /*block 요소이면 적용 안되서 */
+}
+.join_form > form >label{
+    margin-top: 30px;
+    display: inline-block;   /*inline block 으로 바꿔야한다.*/
+    font-size: 16px;
+    margin: 30px 0 10px 0;
+}
+.input{
+    width: 100%;
+    height: 50px;
+    padding: 0 40px 0 15px;
+    border: 1px solid silver;
+    
+    
+}
+.input input[type=text], .input input[type=password]{
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+}
+.msg{
+    margin-top: 5px;
+    font-size: 11px;
+    color: #777;
+    display: block;
+}
+.dont{
+    color: #ff1515;
+}
+
+.checked + .msg  {
+    display: none;
+}
+
+.no_required {
+    font-size: 12px;
+    color: #888;
+}
+
+.date{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+
+}
+.date > .select_box{
+    width: 160px;
+    height: 100%;
+    border: 1px solid silver;
+    position: relative;
+}
+.lst{
+    display: none;
+    position: absolute;
+    top: 48px;
+    left: -1px;
+    overflow-y: auto;
+    max-height: 200px;
+    width: 160px;
+    background-color: white;
+    border: 1px solid #ccd2d8;
+
+    
+}
+.show{
+    display: inline-block;
+}
+.lst > li > a{
+    display: block;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    padding-left: 20px;
+    
+
+}
+.lst > li > a:hover{
+    background-color: lightgray;
+
+}
+
+#year_value{
+    width: 100%;         
+    height: 100%;
+    line-height: 45px;
+    padding-left: 15px;
+    font-size: 16px;
+}
+#year_select{
+    display: none;
+}
+
+.two_selector {
+    display: flex;
+    width: 100%;
+    height: 50px;
+
+}
+
+.selector{
+    display: block;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    line-height: 50px;
+
+}
+.selector >span{
+    
+    font-size: 16px;
+}
+.selector > span{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid silver;
+}
+.selector:first-of-type > span{
+    border-right: 0;
+}
+
+.selector > input[type=radio]{
+    display: none;   /*안보여도 선택은 된다.*/
+}
+.selector>input[type=radio]:checked + span{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid orange;
+    color: orange;
+    font-weight: bold;
+    
+}
+.btn_send_mail{
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+    border: 1px solid orange;
+    font-weight:700;
+    font-size: 12px;
+    background-color: white;
+    color: orange;
+
+}
+.btn_area{
+    width: 100%;
+    height: 64px;
+    margin-top: 20px;
+
+}
+.btn_submit{
+    width: 100%;
+    height: 100%;
+    background-color: orange;
+    font-weight: 900;
+    color: #fff;
+    font-size: 18px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+}

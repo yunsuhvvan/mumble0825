@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        /*
+            1. ajax
+                1) asynchronous javascript and xml
+                2) XML과 자바스크립트의 비동기 통신
+                3) 통신에서 사용되는 데이터 표준 형식
+                  (1) XML  : 과거
+                  (2) JSON : 현재
+                4) 페이지 전체 단위로 로드하지 않고, 페이지의 일부만 받아서 로드한다.
+                5) XMLHttpRequest 자바스크립트 객체를 이용해서 처리한다.
+            2. 동기 통신과 비동기 통신
+                1) 동기 통신
+                    (1) 순서대로 통신한다. (양 쪽이 동기화 되어있다.)
+                    (2) 요청하고 응답이 올때까지 기다린다.
+                2) 비동기 통신 
+                    (1) 순서를 지킬 필요가 없다.
+                    (2) 요청 후 응답을 기다리지 않고, 다른 업무를 수행할 수 있다.
+                    (3) 응답이 왔는지 점검하는 이벤트가 필요하다.
+        */
+    </script>
+
+</head>
+<body>
+
+    <!-- 1. 동기 통신 -->
+    <div id="box1"></div>
+    <script>
+        // 1. XMLHttpRequest 객체 생성
+        var request = new XMLHttpRequest();
+        // 2. open() : 요청만들기
+        //    open(요청방식, 서버가 보내는 데이터 , 동기: false/비동기: true)
+        request.open('get', '15_data.txt' , false);
+        // 3. send() : 요청보내기
+        request.send();
+        // 4. 서버의 응답(reponse)을 처리
+        //    1) 텍스트 :  reponseText
+        //    2) XML    :  reponseXML
+        //    3) JSON   :  JSON.parse(reponseText) 
+        document.getElementById('box1').textContent = request.responseText;
+    </script>
+
+    <!-- 2. 비동기 통신 -->
+    <div id="box2"></div>
+    <script>
+        /*
+            readystatechange 이벤트
+             1. 비동기 통신에 필수 이벤트이다.
+             2. 통신의 각 단계를 확인하는 이벤트이다.
+             3. readyState 값과 status값을 확인한다.
+             4. readyState 
+               1) 0
+               2) 1
+               3) 2
+               4) 3
+               5) 4 :  통신 성공
+             5. status 
+                1) 1xx
+                2) 200 : 서버가 정상적으로 응답한 경우
+                3) 3xx
+                4) 4xx : 요청이 잘못된 경우 (예: 404)  
+                5) 5xx : 서버에 오류가 발생한 경우
+        */
+
+        //1. XMLHttpRequest 객체생성
+        var request = new XMLHttpRequest();
+        // 2. open();
+        request.open('get', '15_data.txt' , true); // true 비동기 통신을 의미함.
+        // 3. send();
+        request.send();
+        // 4. 응답이 오는지 계속 점검하는 readystatechange 이벤트가 필요하다.
+        request.onreadystatechange = function () {
+            if(request.readyState == 4 && request.status == 200){
+                document.getElementById('box2').textContent = request.responseText;
+            }  
+        }
+    </script>
+
+    <!-- 3. XML 처리 -->
+    <div id="box3"></div>
+    <script>
+
+        var request = new XMLHttpRequest();
+        request.open('get', '15_data.xml', true);
+        request.send();
+
+        request.onreadystatechange = function () {
+            if(request.readyState == 4 && request.status == 200){
+                let resXML =  request.responseXML; // XML을 받아오는 경우 responseXML 사용함.
+
+                // 결과 ul 태그로 작성해 봄
+                let result = '';
+                
+                // XML의 태그를 document.getElementsByTagName() 으로 처리함.
+                let books = resXML.getElementsByTagName('books');// books는 배열이므로 books[0] 형식으로 사용
+                let book =  books[0].getElementsByTagName('book');// book은 배열이고 길이가 2인 배열이므로 for문 사용함.
+                for(let i =0 ; i <book.length; i++){
+
+                    let title = book[i].getElementsByTagName('title')[0];
+                    let author =  book[i].getElementsByTagName('author')[0];
+                    let price = book[i].getElementsByTagName('price')[0];
+                    result += '<ul>';
+                        result += '<li>' + title.textContent + '</li>'
+                        result += '<li>' + author.textContent + '</li>'
+                        result += '<li>' + price.textContent + '</li>'
+                    result += '</ul>';
+                    
+                }
+                document.getElementById('box3').innerHTML = result;
+            }
+        }
+    </script>
+
+    <!-- 4. XML 처리(속성) -->
+    <div id="box4"></div>
+
+    <script>
+        var request = new XMLHttpRequest();
+        request.open('get' , '15_date2.xml',  true);
+        request.send();
+
+        request.onreadystatechange = function () {
+            if(request.readyState ==4 && request.status == 200){
+                // XML 은 responseXML로 가져옴
+                let resXML = request.responseXML;
+
+                let result = '';
+                
+                let books = resXML.getElementsByTagName('books');
+
+                let book = books[0].getElementsByTagName('book');
+                for(let i = 0 ; i < book.length; i++){
+                    let title =  book[i].getAttribute('title');   // book[i].getAttribute('title')   속성은 .을 활용해서 가져온다.
+                    let author =  book[i].getAttribute('author');
+                    let price = book[i].getAttribute('price');
+                    result += '<ul>';
+                        result += '<li>' + title + '</li>';
+                        result += '<li>' + author + '</li>';
+                        result += '<li>' + price + '</li>';
+                    result += '</ul>';
+
+                }
+                document.getElementById('box4').innerHTML = result;
+
+            }
+        }
+    </script>
+
+
+
+  
+    <!-- 5. JSON 처리 -->
+    
+    <div id="box5"></div>
+    <script>
+        
+
+        var request = new XMLHttpRequest();
+        request.open('get', '15_data.json', true);
+        request.send();
+
+        request.onreadystatechange = function () {
+            if( request.readyState ==4 && request.status ==200 ){
+                // 문자열 형식의 JSON 데이터가 응답 되므로 JSON.parse()를 이용해서 객체로 변환함
+                let resJSON =  JSON.parse(request.responseText);
+                
+                // 결과를 table 태그로 표시해 봄.
+                let result = '<table><thead><tr><td>제목</td><td>저자</td><td>가격</td></tr></thead><tbody>';
+
+                // resJSON은 배열이므로 for문 사용
+                for(let i = 0; i < resJSON.length; i++){
+                    // resJSON 배열의 요소는 객체이므로 resJSON[i]는 객체
+                    result += '<tr>';
+                    result += '<td>' +resJSON[i].title + '</td>';
+                    result += '<td>' +resJSON[i].author + '</td>';
+                    result += '<td>' +resJSON[i].price + '</td>';
+                    result += '</tr>';
+
+                }
+                result += '</tbody></table>';
+                document.getElementById('box5').innerHTML =result;
+
+            }
+        }
+    
+    </script>
+    <!-- 연습 기상청XML 가져오기 -->
+    <div id="box6">
+        <h1>
+            <span id="year">년</span>
+            <span id="month">월</span>
+            <span id="day">일</span>
+            <span id="hour">시</span>
+        </h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>지역명</td>
+                    <td>날씨</td>
+                    <td>현재온도</td>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        var request = new XMLHttpRequest();
+
+        request.open('get', '15_sfc_map.xml' ,  true);
+        request.send();
+
+
+        request.onreadystatechange =  function () {
+            if(request.readyState ==4 && request.status ==200){
+               // box6
+               let box6 = document.getElementById('box6');
+
+                // 년월일시
+               let weather = request.responseXML.getElementsByTagName('weather');
+                box6.getElementById('year').textContent = weather.getAttribute('year');
+                box6.getElementById('month').textContent = weather.getAttribute('month');
+                box6.getElementById('day').textContent = weather.getAttribute('day');
+                box6.getElementById('hour').textContent = weather.getAttribute('hour');
+
+                //tbody
+                let result = '';
+                let local = weather.getElementsByTagName('local');
+                for(let i = 0 ; i <local.length; i++){
+                    result += '<tr>'
+                        result += '<td>' +  local.textContent + '</td>';        
+                        result += '<td>' +  local.getAttribute('desc') + '</td>';
+                        result += '<td>' +  local.getAttribute('ta') + '</td>';
+                    result += '</tr>'
+                }
+                
+                box6.getElementById('tbody').innerHTML =  result;
+
+            }
+        }
+
+
+    </script>
+    <!-- 연습2. CCTV 분석하기 -->
+    <div id="box7">
+        <h1>마포구 전체 CCTV는 <span id="total_cctv">대 입니다.</span></h1>
+        <!-- console.log로 작업 -->
+        <!-- 전체 위도 : lat 배열에 저장 및 출력 -->
+        <!-- 전체 경도 : lon 배열에 저장 및 출력 -->
+    </div>
+
+    <script>
+        var request = new XMLHttpRequest();
+        request.open('get', '15_cctv.json', true);
+        request.send();
+        request.onreadystatechange = function () {
+            if(request.readyState ==4 && request.status == 200 ){
+                let resJSON = JSON.parse(request.responseText);
+
+                //전체 위도
+                let lat = [];
+
+                // 전체 경도
+                let lon = [];
+
+                // resJSON =  [{}, {},]
+                // 전체 cctv 대수 total
+                let total = 0;
+                for(let i = 0 ; i <resJSON.length; i++){
+                    // resJSON[i] : {}
+                    // resJSON[i].관리기관명
+                    total += Number(resJSON[i]['카메라대수']);
+                    lat.push(Number(resJSON[i]['위도']));
+                    lon.push(Number(resJSON[i]['경도']));
+                }
+                document.getElementById('total_cctv').textContent = total;
+                console.log(lat);
+                console.log(lon);
+            }
+        }
+    </script>
+
+    <!-- jquery 라이브러리  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <div id="box8"></div>
+    <script>
+        $.ajax({
+            'url' :  '15_data2.txt',     // url: 데이터를 받아오는 서버 경로
+            'dataType': 'text',         // dataType :  받아오는 데이터의 타입 (xml,json 등)
+            'data' : 'query=1',         // data : 서버로 보내는 데이터
+            'tpye' : 'get',             // type :  요청 방식 (서버로 데이터를 보내는 방식)
+            'contentType' : 'text/plain',// contentType: 서버로 보내는 데이터의 타입
+            'async' : true,             // async : 비동기(true), 동기 (false) , 비동기만 사용할 것. 생략하면 비동기
+            'success' : function (data) {   // success : ajax 성공 시 처리할 함수 , 받아 온 실제 데이터(responseText, responseXML 등)
+                fn_ajax1(data);
+            },
+            // error : ajax 실패 시 처리할 함수
+            'error' : function (xhr, textStatus, errorThrown) { // jqXHR -> xhr
+                   console.log('xhr.status : ' + xhr.status); 
+                   console.log('xhr.statusText : ' + xhr.statusText); 
+                   console.log('xhr.statusCode : ' + xhr.statusCode); 
+                   console.log('xhr.responseText : ' + xhr.responseText); 
+                   console.log('textStatus : ' + textStatus); 
+                   console.log('errorThrown : ' + errorThrown); 
+            }
+        }); 
+
+        function fn_ajax1(data) {
+            $('#box8').text(data);
+
+        }
+    </script>
+
+    <!-- 연습3. 네이버 API 책 검색 결과 화면에 나타내기 -->
+    <div id="box9">
+        <ul>
+            <li>전체 검색 결과: <span id="total"></span></li>
+            <li>검색일시: <span id="lastBuildDate"></span></li>
+        </ul>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>링크</td>
+                    <td>썸네일</td>
+                    <td>저자</td>
+                    <td>정상가격</td>
+                    <td>할인가격</td>
+                    <td>출판사</td>
+                    <td>출판일</td>
+                    <td>ISBN</td>
+                    <td>미리보기(최대200자)</td>
+                </tr>
+            </thead>
+            <tbody id="search_result"></tbody>
+        </table>
+    </div>
+
+    <script>
+
+        $.ajax({
+            'url' :  '15_search.xml',
+            'dataType' : 'xml',
+            'success'  : function (data) {
+                fn_ajax2(data);
+            },
+            'error' :  function () {
+                alert('오류발생');
+            }
+        });
+        function fn_ajax2(data) {
+            // data : 전체 XML
+            // $(data) : jquery wrapper로 묶어야 각종 메소드 사용가능
+            $('#total').text($(data).find('total').text());
+            $('#lastBuildDate').text($(data).find('lastBuildDate').text());
+            let result = '';
+            $.each($(data).find('item'), function (i,item) {
+              result += '<tr>';
+                result += '<td>' + $(item).find('title').html() + '</td>';
+                result += '<td><a href="' + $(item).find('link').text() + '">클릭</a></td>';
+                result += '<td><img src="' + $(item).find('image').text() + '" width="100px height="120px"></td>';
+                result += '<td>' + $(item).find('author').text() + '</td>';
+                result += '<td>' + $(item).find('price').text() + '</td>';
+                result += '<td>' + $(item).find('discount').text() + '</td>';
+                result += '<td>' + $(item).find('publisher').text() + '</td>';
+                result += '<td>' + $(item).find('pubdate').text() + '</td>';
+                result += '<td>' + $(item).find('ISBN').text() + '</td>';
+                result += '<td>' + $(item).find('description').html() + '</td>';
+             result += '</tr>';
+
+            });
+            $('#search_result').html(result);
+
+        }
+    </script>
+    <!-- 연습4. 자동자 정보 가져오기 -->
+    <div id="box10"></div>
+    <script>
+        $.ajax({
+            'url' : '15_data2.json',
+            'dataType' : 'json',
+            'success' : function (data) {  //받아온 데이터
+                fn_ajax3(data);
+            },
+            'error' : function () {
+                alert(xhr.statusCode);
+            }
+        });
+        function fn_ajax3(car) {
+            // data = "{}";
+            // JSON.parse(data) == {}
+            //let car = JSON.parse(data);
+            let result = '<ul>';
+        
+            result += '<li>모델: ' + car.model + '</li>';
+            result += '<li>제조사: ' + car.maker + '</li>';
+            result += '<li>가격 : ' + car.price + '</li>';
+
+            result += '<li> 옵션: ';
+            $.each(car.option ,  function (i, item) {
+                result += item + '&nbsp;';
+            });
+            result+='</li>';
+            result += '<li>' + car.info.year + '</li>';
+            result += '<li>' + car.info.discount + '</li>';
+            result += '</ui>';
+
+            $('#box10').html(result);
+
+        }
+    </script>
+
+
+    
+</body>
+</html>
