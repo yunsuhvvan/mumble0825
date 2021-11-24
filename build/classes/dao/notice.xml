@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dao.notice">
+	
+	<!--  전체 목록 반환 -->
+	<select id="selectNoticeList" resultType="dto.Notice">
+		SELECT nno, writer, title, content, hit, ip, ndate, nlastmodified
+ 		  FROM notice
+	</select>
+
+	<!--댓글..  -->
+	<select id="selectNoticeview" resultType="dto.Notice" parameterType="Long">
+		SELECT nno, writer, title, content, hit, ip, ndate, nlastmodified
+ 		  FROM notice
+ 		 WHERE nno = #{nNo}
+	</select>
+	
+	<update id="updateNoticeHit"  parameterType="Long">
+		UPDATE notice
+		   SET hit = hit +1
+		 WHERE nno =#{nNo}
+	</update>
+	
+	<insert id="insertNotice" parameterType="dto.Notice">
+		INSERT INTO notice
+		VALUES(notice_seq.nextval, #{writer}, #{title}, #{content}, 0, #{ip}, SYSDATE, SYSDATE    )
+	</insert>
+	
+	
+	<update id="updateNotice" parameterType="dto.Notice">
+		UPDATE notice
+		   SET 
+		   	   title = #{title},
+		   	   content = #{content},
+		   	   nlastmodified = SYSDATE 
+		 WHERE nno = #{nNo}
+	</update>
+	
+	<delete id="deleteNotice" parameterType="Long">
+		DELETE
+		  FROM notice
+		 WHERE nno = #{nNo}
+	</delete>
+	
+	
+	<!--  검색 -->
+	
+	<!-- 
+		${column}  :  작은 따옴표 (') 안붙음.
+					  숫자 또는 칼럼용으로 사용.  'WRITER'가 아닌 WRITER 형태로 SELECT WRITER 칼럼에게 전달하는 것임 
+		#{query}   :  작은 따옴표 (')가 붙음
+					  문자용으로 사용.
+					  단, 숫자용으로 사용할 수 있음.
+	
+	 -->
+	<select id="findNotice" resultType="dto.Notice" parameterType="Map">
+		SELECT NNO, WRITER, TITLE, CONTENT, HIT, IP, NDATE, NLASTMODIFIED
+ 		  FROM NOTICE
+ 		 WHERE <if test="column !='ALL'">${column} LIKE #{query}</if>
+ 		       <if test="column == 'ALL'"> WRITER LIKE #{query} OR TITLE LIKE #{query} OR CONTENT LIKE #{query}</if>
+	</select>
+	
+</mapper>
