@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- 
+		Spring bean configuration file
+		: 안녕 난 bean을 만드는 XML 이야
+	 -->
+		
+	<!-- 1. 디폴트 생성자 + setter -->
+	<!-- 
+		1) 디폴트 생성자
+		<bean id="객체명" class="클래스명"></bean>
+		<bean id="객체명" class="클래스명"/>
+		
+		2) setter 
+		<property name="필드명">
+			<value>값</value>
+		</property>
+		
+		<property name="필드명">
+			<ref bean="객체명"/>		
+		</property>
+	 -->
+	 
+	 <!-- 
+	 	지금부터 아래 bean을 생성한다
+	 	Calculator calculator1 = new Calculator();
+	 	
+	  -->
+	 
+	 <bean id="calculator1" class="com.koreait.ex01.bean01.Calculator"></bean>
+	 
+	 <!-- 
+	 	지금부터 아래 Bean을 생성한다
+	 	EngineerCalculator eCalculator1 = new EnginnerCalculator();
+	 	eCalculator.setA(7);
+	 	eCalculator.setB(2);
+	 	eCalculator.setCalculator(calculator1);
+	  -->
+	  
+	  <bean id="eCalculator1" class="com.koreait.ex01.bean01.EngineerCalculator">
+			<property name="a">
+				<value>7</value>
+			</property>	
+			<property name="b">
+				<value>2</value>
+			</property>
+			<property name="calculator">
+				<ref bean="calculator1"/>
+			</property>  
+	  </bean>
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+
+</beans>
