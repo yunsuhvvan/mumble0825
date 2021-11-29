@@ -16,3 +16,21 @@ sts 4.x
 https://spring.io/tools -> 4.12.1 window 다운
 https://github.com/spring-projects/toolsuite-distribution/wiki/Spring-Tool-Suite-3 -> Latest STS3 Downloads 
     
+help -> eclipse marketplace - > Spring tools Add-on  for Spring tools 4 / 3.9.19 SNAPSHOT
+
+Window - Perspective - Open Perspective - Other -  Spring을 Default로 ...
+View 정리 (servers 탭 옮기고 나머지는 닫기..)
+    
+ Window -Preferencess
+ -font
+ -encoding
+ 
+---------------------------------------------------------------------------------------------------------------------------- 
+ 
+ Top-level package = base package
+    3단 or 4단 패키지가 먼저 작업 되어야한다.
+    ex)com.samsung.galaxy
+    ex)com.koreait.ex01    : ex01 -> context path   /  com.koreait -> groupID
+ ---------------------------------------------------------------------------------------------------------------------------
+ resources (assets)  : img..
+        
