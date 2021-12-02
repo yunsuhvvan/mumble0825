@@ -5,4 +5,31 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+	
+	<!-- 
+		@AutoWired는 class로 bean을 인식하기때문에 
+		member3과 member4를 다르게 인식하지 못한다.
+		
+		member3와 member4의 구분을 위해서 <qualifier> 구분자 태그를 추가함.
+	
+	 -->	
+		
+	<bean class="com.koreait.ex03.domain.Member" id="member3">
+     	<qualifier value="member3"/>
+		<property name="id" value="admin"></property>
+		<property name="pw" value="1111"></property>
+	</bean>
+	
+	<bean class="com.koreait.ex03.domain.Member" id="member4">
+		<qualifier value="member4"/>
+		<constructor-arg value="webmaster"/>
+		<constructor-arg value="1234"/>
+	</bean>		
+	
+	
+		
+		
+		
+		
+		
 </beans>

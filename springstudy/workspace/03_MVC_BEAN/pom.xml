@@ -122,6 +122,7 @@
 		</dependency>
 	
 		<!-- Test -->
+		<!-- source,target 1.8로 수정 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
