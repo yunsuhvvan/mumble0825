@@ -14,8 +14,8 @@ public class Product {
 	
 	// constructor
 	private Product(Builder builder) {
-		this.modelName = modelName;
-		this.price = price;
+		this.modelName = builder.modelName;
+		this.price = builder.price;
 	}
 	// BUilder 내부 클래스
 	public static class Builder{
