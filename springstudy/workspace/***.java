@@ -39,3 +39,7 @@ public void setBoard(Board myBoard){ //★ 매개변수로 자동 주입된다�
 }
   
  ******************************************************************************************************************************
+ 
+  template.queryForObject
+  예시-template.queryForObject(sql, new BeanPropertyRowMapper<Contact>(Contact.class), contact.getNo());
+  - 쿼리의 결과는 한 행 뿐이니 쿼리 결과를 List로 받기 보다는 Integer과 같은 정수 타입으로 받으면 편리하다. 이를 위한 메서드가 queryForObject()이다.
