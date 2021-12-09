@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 
+	기존에 했던 방식 : namespace 는 mapper 패키지 아래 notice.xml을 참고해서 작성함.
+	
+	오늘 배운 방식  :  namespace는 dao 패키지의 NoticeDAO 클래스를 참조한다.
+	mapper의 각 태그 id(id="selectNoticeList")가 NoticeDAO 인터페이스의 추상메소드 이름과 매핑됨
+ -->
+<mapper namespace="com.koreait.ex12.repository.GalleryRepository">
+
+	<select id="selectGalleryList" resultType="com.koreait.ex12.domain.Gallery">
+		SELECT NO, WRITER, TITLE, CONTENT, IP, PATH, ORIGIN, SAVED, CREATED, LASTMODIFIED
+		  FROM GALLERY
+		 ORDER BY NO DESC
+	</select>
+	
+	<select id="selectGalleryByNo" parameterType="Long" resultType="com.koreait.ex12.domain.Gallery">
+		SELECT NO, WRITER, TITLE, CONTENT, IP, PATH, ORIGIN, SAVED, CREATED, LASTMODIFIED
+		  FROM GALLERY
+		 WHERE NO = #{no}
+	</select>
+
+
+	<insert id="insertGallery" parameterType="com.koreait.ex12.domain.Gallery">
+		INSERT INTO GALLERY
+		VALUES(GALLERY_SEQ.NEXTVAL, #{writer}, #{title}, #{content}, #{ip}, #{path}, #{origin}, #{saved}, SYSDATE, SYSDATE)
+	</insert>
+	
+	<update id="updateGallery" parameterType="com.koreait.ex12.domain.Gallery">
+		
+	</update>
+	
+	<delete id="deleteGallery" parameterType="Long">
+		DELETE 
+		  FROM GALLERY
+		 WHERE NO =#{no}
+	</delete>
+
+</mapper>
