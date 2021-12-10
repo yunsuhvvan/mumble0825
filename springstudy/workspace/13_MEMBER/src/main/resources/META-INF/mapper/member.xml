@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 
+	기존에 했던 방식 : namespace 는 mapper 패키지 아래 notice.xml을 참고해서 작성함.
+	
+	오늘 배운 방식  :  namespace는 dao 패키지의 NoticeDAO 클래스를 참조한다.
+	mapper의 각 태그 id(id="selectNoticeList")가 NoticeDAO 인터페이스의 추상메소드 이름과 매핑됨
+ -->
+<mapper namespace="com.koreait.ex13.repository.MemberRepository">
+
+	<!--  
+	1 아니면 0이 반환될 수 있도록
+	idCheck 
+	-->
+	<select id="selectMemberById" parameterType="String" resultType="com.koreait.ex13.domain.Member">
+		SELECT NO, ID, PW, NAME, EMAIL, STATE, REGISTED
+		  FROM MEMBER
+		 WHERE ID = #{id}
+	</select>
+	
+	<insert id="joinMember" parameterType="com.koreait.ex13.domain.Member">
+		INSERT INTO MEMBER
+		VALUES(MEMBER_SEQ.NEXTVAL, #{id}, #{pw}, #{name}, #{email}, 1, SYSDATE)
+	</insert>
+	
+	<select id="login" parameterType="com.koreait.ex13.domain.Member" resultType="com.koreait.ex13.domain.Member">
+		SELECT NO, ID, PW, NAME, EMAIL,STATE, REGISTED
+		  FROM MEMBER
+		 WHERE ID = #{id} AND PW = #{pw} AND STATE = 1
+		 
+	</select>
+	 <!--  findId -->
+	<select id="selectMemberByEmail" parameterType="String" resultType="com.koreait.ex13.domain.Member">
+		SELECT NO, ID, PW, NAME, EMAIL,STATE, REGISTED
+		  FROM MEMBER
+		 WHERE EMAIL = #{email}
+	</select>
+	 
+	 <!--  no 대신 email이 들어가도 괜찮다고 함.. 중복체크가 이미 되어있기때문에 -->
+	<update id="updatePw" parameterType="com.koreait.ex13.domain.Member">
+		UPDATE MEMBER
+		   SET PW = #{pw}
+		 WHERE NO = #{no}
+	</update>
+	<!--  MEMBERLOG 테이블은 JSP에서 공부한 것으로 참조할 것..! -->
+	<update id="updateMember" parameterType="com.koreait.ex13.domain.Member">
+	 	UPDATE MEMBER
+	 	   SET NAME =  #{name}
+	 	   	,  EMAIL = #{email}
+	 	 WHERE NO = #{no}
+	</update>
+	
+	<update id="leaveMember" parameterType="Long">
+		UPDATE MEMBER
+		   SET STATE  = -1
+		 WHERE NO = #{no}
+	</update>
+	
+
+</mapper>
