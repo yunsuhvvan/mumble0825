@@ -12,20 +12,32 @@
 		fnPwCheck();
 		fnPw2Check();
 		fnUpdateMember();
-		fnDeleteMember();
+		fnLeave();
+		fnPresentPwCheck();
+		fnUpdatePw();
 	});
-	
-	// 회원 탈퇴하기
-	function fnDeleteMember() {
-		$('#leave_btn').on('click' , function () {
-		if(confirm('삭제할까요?')){
-		 	$('#f').attr('action', '/ex13/member/deleteMember');
-		 	$('#f').submit();
-			}
+	// 현재 비밀번호 확인 변수와 함수
+	let presentPwPass = false;
+	function fnPresentPwCheck() {
+		$('#pw0').keyup(function(){
+			$.ajax({
+				url: 'presentPwCheck',
+				type: 'post',
+				data: $('#f').serialize(),
+				dataType: 'json',
+				success: function(map){
+					if (map.result) {
+						presentPwPass = true;
+					} else {
+						presentPwPass = false;
+					}
+				}
+			});
 		});
-	} // fnDeleteMember
+	}  // end fnPresentPwCheck
 	
-	// 비밀번호 변경 변수와 함수
+	
+	// 새 비밀번호 변경 변수와 함수
 	let pwPass = false;
 	function fnPwCheck() {
 		$('#pw').keyup(function() {
@@ -40,7 +52,7 @@
 		});
 	}  // end fnPwCheck
 	
-	// 비밀번호 입력확인 변수와 함수
+	// 새 비밀번호 입력확인 변수와 함수
 	let pwPass2 = false;
 	function fnPw2Check(){
 		$('#pw2').keyup(function(){
@@ -53,6 +65,22 @@
 			}
 		});
 	}  // end fnPw2Check
+	
+	// 비밀번호 변경 함수
+	function fnUpdatePw() {
+		$('#updatePw_btn').click(function(){
+			if ( presentPwPass == false ) {
+				alert('현재 비밀번호를 확인하세요.');
+				return;
+			}
+			else if ( pwPass == false || pwPass2 == false ) {
+				alert('새 비밀번호 입력을 확인하세요.');
+				return;
+			}
+			$('#f').attr('action', '/ex13/member/updatePw');
+			$('#f').submit();
+		});
+	}  // end fnUpdatePw
 	
 	// 이메일 중복체크 변수와 함수
 	let emailPass = false;
@@ -105,6 +133,16 @@
 		});
 	} // fnUpdateMember
 	
+	//회원 탈퇴 함수
+	function fnLeave() {
+		$('#leave_btn').click(function () {
+			if(confirm('탈퇴하시겠습니까?')){
+				$('#f').attr('action', '/ex13/member/leave');
+			 	$('#f').submit();
+			}
+		});
+	}  // end fnLeave
+	
 
 </script>
 <style>
@@ -123,6 +161,7 @@
 	<form id="f" method="post">
 		
 		<input type="hidden" name="no"  id="no" value="${loginUser.no}">
+		<input type="hidden" name="id" id="id" value="${loginUser.id}">
 		
 		회원번호<br>
 		${loginUser.no}<br>

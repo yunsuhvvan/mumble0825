@@ -95,7 +95,7 @@ public class MemberController {
 	@PostMapping(value = "updatePw")
 	public String updatePw(Member member) {
 		service.updatePw(member);
-		return "redirect:loginPage";
+		return "redirect:/";
 	}
 	
 	@GetMapping(value = "myPage")
@@ -109,10 +109,16 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@PostMapping(value = "deleteMember")
-	public String deleteMember(@RequestParam("no")Long no) {
-		service.leaveMember(no);
+	@PostMapping(value = "leave")
+	public String leave(@RequestParam("no")Long no, HttpSession session) {
+		service.leaveMember(no, session);
 		return "redirect:/";
+	}
+	
+	@PostMapping(value="presentPwCheck", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public Map<String, Object> presentPwCheck(HttpServletRequest request) {
+		return service.presentPwCheck(request);
 	}
 	
 	

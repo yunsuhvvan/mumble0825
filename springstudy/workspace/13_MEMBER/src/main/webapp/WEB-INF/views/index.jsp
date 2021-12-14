@@ -25,9 +25,7 @@
 			<a href="/ex13/member/myPage">마이페이지</a>
 		</c:if>
 		
-		<c:if test="${loginUser.state =  }">
-			탈퇴되었습니다.
-		</c:if>
+		
 
 </body>
 </html>

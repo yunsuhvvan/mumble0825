@@ -105,10 +105,20 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void leaveMember(Long no) {
-	
+	public void leaveMember(Long no , HttpSession session) {
 		MemberRepository repository = sqlSession.getMapper(MemberRepository.class);
 		repository.leaveMember(no);
+		session.invalidate();
+	}
+	
+	@Override
+	public Map<String, Object> presentPwCheck(HttpServletRequest request) {
+		MemberRepository repository = sqlSession.getMapper(MemberRepository.class);
+		// hidden으로 넘겨준 id
+		Member member = repository.selectMemberById(request.getParameter("id"));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", SecurityUtils.sha256(request.getParameter("pw0")).equals(member.getPw()));
+		return map;
 	}
 
 

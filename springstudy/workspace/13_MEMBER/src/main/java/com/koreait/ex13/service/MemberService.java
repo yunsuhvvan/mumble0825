@@ -12,10 +12,11 @@ public interface MemberService {
 	public Map<String, Object> idCheck(String id);
 	public Map<String, Object> sendAuthCode(String email);
 	public Map<String, Object> findMemberByEmail(String id);
+	public Map<String, Object> presentPwCheck(HttpServletRequest request);
 	public void join(Member member);
 	public void login(HttpServletRequest request);
 	public void updatePw(Member member);
 	public void updateMember(Member member , HttpSession session);
-	public void leaveMember(Long no);
+	public void leaveMember(Long no, HttpSession session);
 	
 }
