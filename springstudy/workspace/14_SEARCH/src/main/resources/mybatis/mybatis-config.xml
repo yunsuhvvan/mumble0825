@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd" >
+
+<!-- 히카리CP가 해서 configuration 내부 내용 지워도된다.  
+		Mybatis 홈페이지에서 setting 내용을 가지고 온다. -->
+<configuration>
+	<settings>
+		  <setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<!-- 기니까 줄여서 쓸게.. -->
+	<typeAliases>
+		<typeAlias type="com.koreait.ex14.domain.Department" alias="Department"/>
+		<typeAlias type="com.koreait.ex14.domain.Employee" alias="Employee"/>
+	</typeAliases>
+	
+	
+</configuration>
