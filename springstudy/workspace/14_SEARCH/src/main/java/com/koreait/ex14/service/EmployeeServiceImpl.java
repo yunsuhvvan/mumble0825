@@ -120,7 +120,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	} // end of findEmployee
 	
 	@Override
-	public void autoComplete(Map<String, Object> map, HttpServletResponse response) {
+	public void autoComplete(Map<String, Object> map, HttpServletResponse response) { 
+		
 		EmployeeRepository repository = sqlSession.getMapper(EmployeeRepository.class);
 		List<Employee> list = repository.autoComplete(map);
 		
